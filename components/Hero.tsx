@@ -18,6 +18,7 @@ export default function AnimatedHero() {
                     className="absolute inset-0 w-full h-full object-cover opacity-80 blur-[2px]"
                 >
                     <source src="/video/home.mp4" type="video/mp4" />
+                    {/* TODO: video/home.mp4 missing, ensure it exists or replace */}
                 </video>
                 {/* Dark gradient overlay for text visibility */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/60" />
@@ -40,7 +41,7 @@ export default function AnimatedHero() {
                         className="flex items-center gap-2 mb-8 border border-white/30 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md"
                     >
                         <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.8)]" />
-                        <span className="text-xs font-bold uppercase tracking-widest text-green-300">NEXT-GENERATION HYDROGEN PLATFORM</span>
+                        <span className="text-xs font-bold uppercase tracking-widest text-green-300">HYFUX: NEXT-GEN HYDROGEN</span>
                     </motion.div>
 
                     {/* Headline */}
@@ -59,7 +60,7 @@ export default function AnimatedHero() {
                         variants={fadeUp}
                         className="text-xl md:text-2xl lg:text-3xl text-slate-100 leading-relaxed max-w-3xl mx-auto mb-10 font-light"
                     >
-                        HELIONYX is developing a next-generation hydrogen production platform designed to fundamentally reduce energy consumption and unlock economically viable green hydrogen for industrial deployment.
+                        HYFUX is deploying advanced Solid Oxide Fuel Cell (SOFC) technology to deliver high-efficiency, reversible hydrogen production and power generation for the industrial future.
                     </motion.p>
 
                     {/* CTAs */}

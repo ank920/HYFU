@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-    title: "HELIONYX | Industrial-Scale Green Hydrogen",
-    description: "Engineered for the Next Cost Curve. Next-generation hydrogen production platform.",
+    title: "HYFUX | Next-Gen Hydrogen Platform",
+    description: "HYFUX is pioneering Solid Oxide Fuel Cell (SOFC) technology for efficient, scalable, and sustainable hydrogen production.",
 };
 
 export default function RootLayout({

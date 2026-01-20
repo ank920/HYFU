@@ -17,23 +17,23 @@ export default function Footer() {
                         <Link href="/" className="inline-flex items-center gap-3 group">
                             <Image
                                 src="/images/logo.jpeg"
-                                alt="Helionyx Logo"
+                                alt="HYFUX Logo"
                                 width={160}
                                 height={50}
                                 className="h-12 w-auto object-contain"
                             />
                             <div className="flex flex-col justify-center h-12 border-l border-slate-300 pl-3 ml-1 py-0.5">
                                 <span className="font-bold tracking-[0.1em] text-[0.5rem] leading-none mb-[1px] text-slate-500 group-hover:text-slate-700 transition-colors">
-                                    Next Gen
+                                    HYFUX
                                 </span>
                                 <span className="font-bold tracking-[0.15em] text-[0.6rem] uppercase leading-none mb-[1px] text-slate-600 group-hover:text-slate-900 transition-colors">
-                                    Clean
+                                    Hydrogen
                                 </span>
                                 <span className="font-bold tracking-[0.15em] text-[0.6rem] uppercase leading-none mb-[1px] text-slate-600 group-hover:text-slate-900 transition-colors">
                                     Energy
                                 </span>
                                 <span className="font-bold tracking-[0.15em] text-[0.6rem] uppercase leading-none text-blue-600">
-                                    Tech
+                                    Systems
                                 </span>
                             </div>
                         </Link>
@@ -91,7 +91,7 @@ export default function Footer() {
             {/* Bottom Bar */}
             <div className="bg-slate-50 border-t border-slate-100">
                 <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
-                    <p>&copy; {currentYear} Helionyx. All rights reserved.</p>
+                    <p>&copy; {currentYear} HYFUX. All rights reserved.</p>
                     <div className="flex gap-8">
                         <Link href="#" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
                         <Link href="#" className="hover:text-slate-900 transition-colors">Terms of Service</Link>

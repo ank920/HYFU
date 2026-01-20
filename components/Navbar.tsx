@@ -63,7 +63,7 @@ export default function Navbar() {
                 )}>
                     <Image
                         src="/images/logo.jpeg"
-                        alt="Helionyx Logo"
+                        alt="HYFUX Logo"
                         width={160}
                         height={50}
                         priority
@@ -77,13 +77,13 @@ export default function Navbar() {
                             "font-bold tracking-[0.1em] text-[0.45rem] lg:text-[0.55rem] leading-none mb-[1px]",
                             scrolled || isOpen ? "text-slate-500" : "text-slate-400"
                         )}>
-                            Next Gen
+                            HYFUX
                         </span>
                         <span className={cn(
                             "font-bold tracking-[0.15em] text-[0.55rem] lg:text-[0.65rem] uppercase leading-none mb-[1px]",
                             scrolled || isOpen ? "text-slate-600" : "text-slate-300"
                         )}>
-                            Clean
+                            Hydrogen
                         </span>
                         <span className={cn(
                             "font-bold tracking-[0.15em] text-[0.55rem] lg:text-[0.65rem] uppercase leading-none mb-[1px]",
@@ -95,7 +95,7 @@ export default function Navbar() {
                             "font-bold tracking-[0.15em] text-[0.55rem] lg:text-[0.65rem] uppercase leading-none",
                             scrolled || isOpen ? "text-blue-600" : "text-blue-400"
                         )}>
-                            Tech
+                            Systems
                         </span>
                     </div>
                 </Link>
