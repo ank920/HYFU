@@ -3,350 +3,333 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, ShieldCheck, Factory, Globe2, Leaf, Truck, Zap, Building2, Flame } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import {
+    ShieldCheck, Target, Zap, Clock, TrendingUp, Users,
+    Globe2, Award, ChevronDown, CheckCircle2, Factory
+} from "lucide-react";
+
+// --- Components ---
+
+const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) => {
+    return (
+        <div className="border-b border-slate-200 last:border-0">
+            <button
+                className="w-full py-6 flex justify-between items-center text-left focus:outline-none group"
+                onClick={onClick}
+            >
+                <span className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isOpen ? "text-blue-600" : "text-slate-900 group-hover:text-blue-600"}`}>
+                    {question}
+                </span>
+                <span className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                    <ChevronDown className={`w-6 h-6 ${isOpen ? "text-blue-600" : "text-slate-400"}`} />
+                </span>
+            </button>
+            <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}>
+                <div className="overflow-hidden">
+                    <p className="text-slate-600 leading-relaxed text-base md:text-lg">
+                        {answer}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SectionHeader = ({ label, title, description, light = false, className = "" }: { label: string, title: string, description?: string, light?: boolean, className?: string }) => (
+    <div className={`mb-10 max-w-3xl ${className}`}>
+        <span className={`font-bold tracking-widest text-xs uppercase mb-4 block ${light ? "text-blue-400" : "text-blue-600"}`}>
+            {label}
+        </span>
+        <h2 className={`text-3xl md:text-5xl font-extrabold mb-6 leading-tight ${light ? "text-white" : "text-slate-900"}`}>
+            {title}
+        </h2>
+        {description && (
+            <p className={`text-lg md:text-xl leading-relaxed ${light ? "text-slate-300" : "text-slate-600"}`}>
+                {description}
+            </p>
+        )}
+    </div>
+);
 
 export default function AboutPage() {
+    const [openFAQ, setOpenFAQ] = useState<number | null>(0);
+
+    const toggleFAQ = (index: number) => {
+        setOpenFAQ(openFAQ === index ? null : index);
+    };
+
     return (
-        <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100">
+        <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100 font-sans w-full overflow-x-hidden">
             <Navbar />
 
-            {/* 🔹 HERO SECTION */}
-            <div className="relative h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-800">
-                {/* Background Image */}
+            {/* HERO SECTION */}
+            <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-900">
                 <div className="absolute inset-0 z-0">
                     <Image
-                        src="/images/about us/ABOUT US — Page Header Image.png"
-                        alt="About Helionyx"
+                        src="/images/about us/hero.jpg"
+                        alt="HYFU Industrial Scale"
                         fill
-                        className="object-cover opacity-80"
+                        className="object-cover blur-[2px]"
                         priority
                     />
-                    {/* Dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/90" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent"></div>
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white mt-16">
-                    <motion.span
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-blue-400 font-bold tracking-widest text-xs uppercase mb-6 block"
-                    >
-                        About Helionyx
-                    </motion.span>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-tight"
-                    >
-                        A Next-Generation Hydrogen Company <br /><span className="text-blue-500">Built on Proven Climate Technology</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto"
-                    >
-                        HELIONYX is a hydrogen technology and deployment platform developed through strategic partnerships in the climate-tech sector, focused on translating advanced energy systems into scalable, commercially viable hydrogen solutions.
-                    </motion.p>
+                <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20">
+                    <div className="max-w-4xl text-left animate-fade-in-up">
+                        <span className="inline-flex items-center gap-2 py-2 px-4 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-xs uppercase tracking-widest mb-6 backdrop-blur-md">
+                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                            🏢 ABOUT US
+                        </span>
+                        <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1]">
+                            HYFU — Building the Backbone of <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Reliable, Low-Carbon Power</span>
+                        </h1>
+                    </div>
                 </div>
             </div>
 
-            {/* 🔹 SECTION 1: WHO WE ARE */}
-            <AnimatedSection className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+            {/* INTRO: MISSION & PHILOSOPHY (Section 1 & 2 Combined Conceptually) */}
+            <AnimatedSection className="py-12 md:py-20 bg-white border-b border-slate-100">
+                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
                     <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Who We Are</h2>
-                        <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
-                            <p>
-                                HELIONYX is a clean hydrogen technology company focused on industrial-scale deployment, economic viability, and real-world execution.
-                            </p>
-                            <p>
-                                The company was developed through partnerships with global green-technology organizations with operations across North America and Europe, and builds on a foundation of proprietary, IP-protected climate technologies.
-                            </p>
-                            <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-600">
-                                <h4 className="font-bold text-blue-900 mb-2">HELIONYX’s role is clear:</h4>
-                                <p className="text-blue-800 text-base">
-                                    To convert advanced climate-tech capabilities into deployable hydrogen platforms aligned with industrial economics, infrastructure realities, and long-term sustainability goals.
+                        <h2 className="text-3xl font-bold text-slate-900 mb-6">Engineering First, Hype Last</h2>
+                        <p className="text-lg text-slate-600 leading-relaxed mb-6 font-medium">
+                            HYFU is a clean-energy company focused on one clear mission: making reliable, low-carbon, on-site power practical at industrial scale.
+                        </p>
+                        <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                            We work at the intersection of advanced fuel-cell systems, real-world energy needs, and long-term infrastructure thinking. Our focus is not on incremental improvements, but on structural change in how power is generated.
+                        </p>
+
+                        <div className="space-y-6">
+                            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                <h4 className="font-bold text-blue-600 mb-3 flex items-center gap-2"><Target className="w-5 h-5" /> Our Mission</h4>
+                                <p className="text-slate-700 leading-relaxed">
+                                    To enable organizations to operate with continuous, high-efficiency power while materially reducing emissions and operational risk.
                                 </p>
+                            </div>
+                            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2"><Award className="w-5 h-5 text-blue-600" /> Our Philosophy</h4>
+                                <ul className="space-y-2 text-sm text-slate-600">
+                                    <li className="flex gap-2"><div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5" /> Measurable efficiency and availability</li>
+                                    <li className="flex gap-2"><div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5" /> Conservative design margins & operational simplicity</li>
+                                    <li className="flex gap-2"><div className="w-1.5 h-1.5 bg-slate-400 rounded-full mt-1.5" /> Optimize for lifecycle value, not just upfront metrics</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div className="relative h-[400px] w-full rounded-lg overflow-hidden shadow-xl bg-white border border-slate-100">
+                    <div className="relative h-[400px] md:h-[600px] w-full rounded-2xl overflow-hidden shadow-xl border border-slate-100 bg-white p-2">
                         <Image
-                            src="/images/about us/building imag.png"
-                            alt="Helionyx HQ"
+                            src="/images/about us/photo-1531545514256-b1400bc00f31.jpg"
+                            alt="Engineering Excellence"
                             fill
-                            className="object-cover"
+                            className="object-cover rounded-xl"
                         />
+                        <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-6 rounded-xl shadow-lg border border-slate-200">
+                            <p className="font-bold text-slate-900 mb-2">Built for Performance</p>
+                            <p className="text-sm text-slate-600">
+                                "The result is technology that customers can depend on—and finance partners can underwrite."
+                            </p>
+                        </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 2: OUR FOUNDATION */}
-            <AnimatedSection className="py-24 bg-slate-50 border-y border-slate-200">
+            {/* 3. WHAT MAKES HYFU DIFFERENT */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 border-y border-slate-200">
                 <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-                    <div className="order-2 lg:order-1 relative h-[400px] w-full rounded-lg overflow-hidden shadow-xl bg-white border border-slate-100">
+                    <div className="order-2 lg:order-1 relative h-[450px] w-full rounded-3xl overflow-hidden shadow-xl border border-white bg-white p-6">
                         <Image
-                            src="/images/about us/GLOBAL PRESENCE — USA • Canada • Germany.png"
-                            alt="Global Presence"
+                            src="/images/about us/What Makes HYFU Different.webp"
+                            alt="HYFU Differentiation"
                             fill
-                            className="object-contain p-4"
+                            className="object-contain"
                         />
                     </div>
                     <div className="order-1 lg:order-2">
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Built on proven climate-technology foundations</h2>
-                        <p className="text-lg text-slate-600 mb-6">
-                            Our technology foundation focuses on developing integrated energy systems designed to deliver:
-                        </p>
-                        <ul className="space-y-4 mb-8">
-                            <li className="flex gap-3 items-center text-slate-700">
-                                <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                                <span>Emissions-free or ultra-low-emission operation</span>
-                            </li>
-                            <li className="flex gap-3 items-center text-slate-700">
-                                <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                                <span>Simplified installation and operational reliability</span>
-                            </li>
-                            <li className="flex gap-3 items-center text-slate-700">
-                                <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                                <span>Performance under extreme weather and grid conditions</span>
-                            </li>
-                            <li className="flex gap-3 items-center text-slate-700">
-                                <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
-                                <span>Long-term durability and industrial readiness</span>
-                            </li>
-                        </ul>
-                        <p className="text-slate-600">
-                            HELIONYX is built on this foundation, with a specific mandate to commercialize hydrogen and hydrogen-derived solutions using proven advanced technologies.
-                        </p>
+                        <SectionHeader
+                            label="3. Key Differentiators"
+                            title="Focused on Real Deployment, Not Theoretical Capability"
+                            description="We do not try to be everything to everyone. Instead, we focus on applications where reliability, efficiency, and emissions reduction directly translate into customer value."
+                        />
+                        <div className="space-y-4">
+                            {[
+                                { t: "Stationary Power", d: "Focused on behind-the-meter power where value is highest." },
+                                { t: "High Utilization", d: "Designed for steady-state baseload, not standby operation." },
+                                { t: "Repeatable Deployment", d: "Built for scale, moving away from one-off bespoke projects." }
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+                                    <CheckCircle2 className="w-6 h-6 text-green-500 shrink-0 mt-0.5" />
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 text-sm md:text-base">{item.t}</h4>
+                                        <p className="text-sm text-slate-600">{item.d}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 3: TECHNOLOGY HERITAGE */}
-            <AnimatedSection className="py-24 bg-white">
+            {/* 4. WHO WE SERVE */}
+            <AnimatedSection className="py-12 md:py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
                     <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Proven climate-technology capabilities</h2>
-                        <p className="text-lg text-slate-600 mb-6">
-                            HELIONYX leverages proven advanced technologies for:
-                        </p>
-                        <ul className="grid grid-cols-1 gap-3 mb-8">
-                            <li className="flex gap-3 items-center bg-slate-50 p-4 rounded-lg border border-slate-100">
-                                <Factory className="w-5 h-5 text-blue-600" />
-                                <span className="font-medium text-slate-900">Carbon dioxide (CO₂) capture</span>
-                            </li>
-                            <li className="flex gap-3 items-center bg-slate-50 p-4 rounded-lg border border-slate-100">
-                                <Leaf className="w-5 h-5 text-blue-600" />
-                                <span className="font-medium text-slate-900">CO₂ conversion and reuse</span>
-                            </li>
-                            <li className="flex gap-3 items-center bg-slate-50 p-4 rounded-lg border border-slate-100">
-                                <Zap className="w-5 h-5 text-blue-600" />
-                                <span className="font-medium text-slate-900">Hydrogen and methanol production pathways</span>
-                            </li>
-                        </ul>
-                        <p className="text-slate-600">
-                            These technologies are designed as integrated systems, enabling closed-loop processes in which carbon is captured, reused, and converted into valuable energy products rather than released into the atmosphere.
-                        </p>
+                        <SectionHeader
+                            label="4. Who We Serve"
+                            title="Customers with Zero Tolerance for Power Failure"
+                            description="HYFU serves organizations that view energy as mission-critical infrastructure. For these customers, power systems must work every day, without exception."
+                        />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {[
+                                "Data Center Operators", "Industrial Manufacturers",
+                                "Healthcare Campuses", "Commercial Microgrids",
+                                "Energy-Intensive Facilities"
+                            ].map((customer, i) => (
+                                <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-blue-50 transition-colors border border-slate-100">
+                                    <Factory className="w-5 h-5 text-blue-600" />
+                                    <span className="font-medium text-slate-700 text-sm">{customer}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                    <div className="relative h-[400px] w-full rounded-lg overflow-hidden shadow-xl bg-white border border-slate-100">
+                    <div className="relative h-[400px] w-full rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-white p-6">
                         <Image
-                            src="/images/about us/TECHNOLOGY HERITAGE — IP-Protected Innovation.png"
-                            alt="Technology Heritage"
+                            src="/images/about us/Who We Serve.jpg"
+                            alt="Mission Critical Customers"
                             fill
-                            className="object-contain p-4"
+                            className="object-cover rounded-xl"
                         />
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 4 & 5: HYDROGEN & METHANOL + PATHWAYS */}
-            <AnimatedSection className="py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
-                        <div className="relative h-[500px] w-full rounded-lg overflow-hidden shadow-xl bg-white border border-slate-100">
-                            <Image
-                                src="/images/about us/ARBON & HYDROGEN SYSTEMS — Clean Energy Pathways.png"
-                                alt="Carbon & Hydrogen Systems"
-                                fill
-                                className="object-contain p-4"
-                            />
-                        </div>
-                        <div>
-                            <div className="mb-12">
-                                <h2 className="text-2xl font-bold mb-4 text-slate-900">Flexible production across feedstocks</h2>
-                                <p className="text-slate-600 mb-4">
-                                    HELIONYX supports hydrogen and methanol production from a range of feedstocks, including:
-                                </p>
-                                <ul className="text-sm grid grid-cols-2 gap-2 text-slate-700 font-medium mb-4">
-                                    <li>• Associated petroleum gas (APG)</li>
-                                    <li>• Flare gas</li>
-                                    <li>• Landfill gas</li>
-                                    <li>• Ethane and mixed streams</li>
-                                </ul>
-                                <p className="text-slate-600 text-sm italic">
-                                    This flexibility enables deployment in environments where conventional hydrogen systems are inefficient, constrained, or uneconomical.
-                                </p>
+            {/* 5. LONG-TERM VISION */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 border-y border-slate-200">
+                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-xl border border-white bg-white p-6">
+                        <Image
+                            src="/images/about us/Our Long-Term Vision.jpg"
+                            alt="Future Energy System"
+                            fill
+                            className="object-contain rounded-xl"
+                        />
+                    </div>
+                    <div className="order-1 lg:order-2">
+                        <SectionHeader
+                            label="5. Long-Term Vision"
+                            title="Preparing Today for Tomorrow’s Energy System"
+                            description="We believe the future energy system will be distributed, resilient, and fuel-flexible—and HYFU is positioning itself to be part of that foundation."
+                        />
+                        <div className="grid gap-4">
+                            <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                                <h4 className="font-bold text-blue-600 mb-1">Hydrogen-Ready Platforms</h4>
+                                <p className="text-sm text-slate-600">Seamless transition from natural gas to low-carbon fuels.</p>
                             </div>
-
-                            <div>
-                                <h2 className="text-2xl font-bold mb-4 text-slate-900 border-t border-slate-200 pt-8">Green & Blue Hydrogen Pathways</h2>
-                                <p className="text-slate-600 mb-4">
-                                    HELIONYX supports both blue and green hydrogen strategies, allowing alignment with regional policy, infrastructure availability, and customer requirements.
-                                </p>
-                                <ul className="space-y-3">
-                                    <li className="flex gap-3 items-start p-3 bg-blue-50/50 rounded">
-                                        <div className="w-2 h-2 rounded-full bg-blue-600 mt-2 shrink-0" />
-                                        <span className="text-slate-700 text-sm"><span className="font-bold text-blue-800">Blue hydrogen pathways</span> integrate carbon capture and reuse</span>
-                                    </li>
-                                    <li className="flex gap-3 items-start p-3 bg-green-50/50 rounded">
-                                        <div className="w-2 h-2 rounded-full bg-green-600 mt-2 shrink-0" />
-                                        <span className="text-slate-700 text-sm"><span className="font-bold text-green-800">Green hydrogen pathways</span> focus on ultra-low energy input and cost efficiency</span>
-                                    </li>
-                                </ul>
+                            <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                                <h4 className="font-bold text-blue-600 mb-1">Renewable Integration</h4>
+                                <p className="text-sm text-slate-600">Firming variable wind and solar inputs with stable baseload.</p>
+                            </div>
+                            <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                                <h4 className="font-bold text-blue-600 mb-1">Core Infrastructure</h4>
+                                <p className="text-sm text-slate-600">Clean power as a standard asset class, not a niche experiment.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 6: MOBILITY */}
-            <AnimatedSection className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Enabling hydrogen adoption beyond production</h2>
-                        <p className="text-lg text-slate-600 mb-6">
-                            HELIONYX also integrates advanced solutions for hydrogen mobility and infrastructure applications.
-                        </p>
-                        <h4 className="font-bold text-slate-900 mb-4">These include system concepts that enable:</h4>
-                        <ul className="space-y-4 mb-8">
-                            <li className="flex gap-3 items-center">
-                                <Factory className="w-5 h-5 text-blue-600" />
-                                <span className="text-slate-700">On-site hydrogen generation at fueling locations</span>
-                            </li>
-                            <li className="flex gap-3 items-center">
-                                <Truck className="w-5 h-5 text-blue-600" />
-                                <span className="text-slate-700">Simplified hydrogen logistics</span>
-                            </li>
-                            <li className="flex gap-3 items-center">
-                                <Globe2 className="w-5 h-5 text-blue-600" />
-                                <span className="text-slate-700">Support for passenger vehicles, commercial fleets, and buses</span>
-                            </li>
-                        </ul>
-                        <p className="text-slate-600 font-medium">
-                            The goal is to reduce infrastructure complexity while accelerating adoption of hydrogen in transport and logistics applications.
-                        </p>
-                    </div>
-                    <div className="relative h-[400px] w-full rounded-lg overflow-hidden shadow-xl bg-white border border-slate-100">
+            {/* 6. APPROACH TO GROWTH */}
+            <AnimatedSection className="py-12 md:py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6 text-center">
+                    <SectionHeader
+                        label="6. Growth Strategy"
+                        title="Scaling with Discipline"
+                        description="HYFU approaches growth deliberately. This disciplined approach ensures that growth strengthens the platform rather than diluting it."
+                        className="mx-auto text-center"
+                    />
+
+                    <div className="relative h-[300px] md:h-[500px] w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-white mb-12">
                         <Image
-                            src="/images/about us/HYDROGEN FOR MOBILITY — Infrastructure & Transport.png"
-                            alt="Hydrogen Mobility"
+                            src="/images/about us/Our Approach to Growth.png"
+                            alt="Growth Strategy"
                             fill
                             className="object-contain p-4"
                         />
                     </div>
+
+                    <div className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                        {[
+                            { t: "Success-Led Scale", d: "Scale follows deployment success." },
+                            { t: "Risk Reduction", d: "Partnerships reduce execution risk." },
+                            { t: "Learning Loops", d: "Systems improve through operational learning." },
+                            { t: "Reliability Focus", d: "Long-term reliability > rapid expansion." }
+                        ].map((item, i) => (
+                            <div key={i} className="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                                <TrendingUp className="w-8 h-8 text-blue-600 mx-auto mb-4" />
+                                <h4 className="font-bold text-slate-900 mb-2">{item.t}</h4>
+                                <p className="text-xs text-slate-600">{item.d}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 7: BRANDS */}
-            <AnimatedSection className="py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-6xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold mb-12 text-slate-900">HELIONYX and our ecosystem</h2>
-                    <p className="text-lg text-slate-600 mb-12 max-w-3xl mx-auto">
-                        HELIONYX is our specialized hydrogen technology and deployment platform, focusing on delivering industrial-scale solutions for the global energy transition.
+            {/* 7. RESPONSIBILITY & TRUST */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-900 text-white">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <ShieldCheck className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6">Trust is Built Over Decades, Not Quarters</h2>
+                    <p className="text-xl text-slate-300 mb-10 leading-relaxed">
+                        As an energy infrastructure company, HYFU understands the responsibility that comes with supplying power. We view every deployment as a long-term relationship, not a transaction.
                     </p>
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-6">
-                                <Zap className="w-6 h-6 text-blue-600" />
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-900 mb-3">HELIONYX</h3>
-                            <p className="text-slate-600 text-sm">Industrial-scale hydrogen production and deployment</p>
+                    <div className="grid sm:grid-cols-2 gap-8 text-left max-w-2xl mx-auto">
+                        <div className="flex gap-4">
+                            <CheckCircle2 className="w-6 h-6 text-green-400 shrink-0" />
+                            <span className="font-medium text-slate-100">Safety-first system design</span>
                         </div>
-                        <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="h-12 w-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-6">
-                                <Globe2 className="w-6 h-6 text-green-600" />
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-900 mb-3">Global Partnerships</h3>
-                            <p className="text-slate-600 text-sm">Technology development and deployment across North America and Europe</p>
+                        <div className="flex gap-4">
+                            <CheckCircle2 className="w-6 h-6 text-green-400 shrink-0" />
+                            <span className="font-medium text-slate-100">Regulatory & environmental compliance</span>
                         </div>
-                        <div className="bg-white p-8 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="h-12 w-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-6">
-                                <Flame className="w-6 h-6 text-orange-600" />
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-900 mb-3">Energy Solutions</h3>
-                            <p className="text-slate-600 text-sm">Complementary energy conversion and mobility technologies</p>
+                        <div className="flex gap-4">
+                            <CheckCircle2 className="w-6 h-6 text-green-400 shrink-0" />
+                            <span className="font-medium text-slate-100">Transparent performance communication</span>
+                        </div>
+                        <div className="flex gap-4">
+                            <CheckCircle2 className="w-6 h-6 text-green-400 shrink-0" />
+                            <span className="font-medium text-slate-100">Long-term customer support</span>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 8 & 9: ENERGY CARRIER & MISSION */}
-            <AnimatedSection className="py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
-                    {/* Energy Carrier */}
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Why Hydrogen Matters</h2>
-                        <h4 className="text-lg font-bold text-slate-800 mb-4">Hydrogen offers compelling characteristics as a low-carbon energy carrier:</h4>
-                        <ul className="space-y-4 mb-6">
-                            <li className="flex gap-3 items-center text-slate-700">
-                                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
-                                <span>High gravimetric energy density</span>
-                            </li>
-                            <li className="flex gap-3 items-center text-slate-700">
-                                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
-                                <span>Compatibility with industrial heat, chemicals, and mobility</span>
-                            </li>
-                            <li className="flex gap-3 items-center text-slate-700">
-                                <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
-                                <span>Ability to store and transport energy across time and distance</span>
-                            </li>
-                        </ul>
-                        <p className="text-slate-600">
-                            When produced using advanced conversion and low-carbon pathways, hydrogen can support large-scale energy needs with relatively efficient land and resource utilization.
-                        </p>
-                    </div>
 
-                    {/* Mission */}
-                    <div className="bg-gradient-to-br from-sky-100 to-blue-100 p-10 rounded-2xl text-slate-900 border border-blue-200">
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Our Mission</h2>
-                        <p className="text-lg text-slate-700 mb-8">
-                            HELIONYX exists to bridge the gap between advanced climate technology and real-world hydrogen economics.
-                        </p>
-                        <ul className="space-y-3 mb-8">
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span className="text-slate-800">Enable scalable, cost-effective hydrogen production</span>
-                            </li>
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span className="text-slate-800">Reduce emissions through carbon capture and reuse</span>
-                            </li>
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span className="text-slate-800">Support industrial decarbonization and clean mobility</span>
-                            </li>
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span className="text-slate-800">Contribute to a more resilient and sustainable global energy system</span>
-                            </li>
-                        </ul>
+            {/* FAQ */}
+            <div className="bg-white py-12 md:py-20 border-t border-slate-200">
+                <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">About HYFU — FAQ</h2>
+                    <div className="space-y-4">
+                        {[
+                            { q: "Is HYFU a technology developer or an energy company?", a: "HYFU is both—a technology-driven company focused on delivering deployable energy infrastructure." },
+                            { q: "Does HYFU focus on one region or globally?", a: "HYFU is structured to support global deployment through regional partnerships." },
+                            { q: "Is HYFU focused only on hydrogen?", a: "No. HYFU systems are fuel-flexible today and hydrogen-ready for the future." },
+                            { q: "What stage is HYFU at?", a: "HYFU is focused on commercial deployment and platform expansion, not early-stage research." },
+                            { q: "How does HYFU define success?", a: "By systems that run reliably, deliver value, and earn long-term customer trust." }
+                        ].map((faq, i) => (
+                            <FAQItem
+                                key={i}
+                                question={faq.q}
+                                answer={faq.a}
+                                isOpen={openFAQ === i}
+                                onClick={() => toggleFAQ(i)}
+                            />
+                        ))}
                     </div>
                 </div>
-            </AnimatedSection>
-
-
-            {/* 🔹 FINAL CTA */}
-            <div className="py-24 bg-slate-50 text-center px-6 border-t border-slate-200">
-                <h2 className="text-3xl md:text-5xl font-bold mb-8 text-slate-900">HELIONYX is not just a technology company.</h2>
-                <p className="text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto mb-10 leading-relaxed">
-                    It is a deployment platform designed to turn climate innovation into practical, scalable hydrogen solutions.
-                </p>
             </div>
 
             <Footer />

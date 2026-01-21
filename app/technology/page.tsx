@@ -3,357 +3,598 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 import {
-    Zap, Activity, Minimize2, Maximize2, Thermometer,
-    CheckCircle2, Layers, Globe2, ArrowRight
+    Zap, Activity, ShieldCheck, Factory, Flame, Thermometer,
+    Gauge, Server, Cpu, ArrowRight, ChevronDown, CheckCircle2,
+    Layers, Atom, BarChart3, Lock
 } from "lucide-react";
-import { fadeUp } from "@/lib/animations";
 
-export default function TechnologyPage() {
+// --- Components ---
+
+const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) => {
     return (
-        <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100">
-            <Navbar />
-
-            {/* 🔹 HERO SECTION (VIDEO + DARK OVERLAY) */}
-            <div className="relative h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-800">
-                {/* Background Video */}
-                <div className="absolute inset-0 z-0">
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover opacity-80"
-                    >
-                        <source src="/video/technology.mp4" type="video/mp4" />
-                    </video>
-                    {/* Dark gradient overlay per user request */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/80" />
-
-                    {/* Subtle abstract wave animation (CSS only for performance) */}
-                    <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
-                </div>
-
-                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 md:mb-8"
-                    >
-                        A New <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-green-400">Hydrogen Production</span> Pathway
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto"
-                    >
-                        <span className="text-cyan-200">HELIONYX</span> is developing a <span className="text-green-300">next-generation, non-electrolytic</span> hydrogen production platform designed to <span className="text-blue-300">fundamentally improve the energy economics</span> of <span className="text-green-400 font-semibold">green hydrogen</span> for industrial-scale deployment.
-                    </motion.p>
+        <div className="border-b border-slate-200 last:border-0">
+            <button
+                className="w-full py-6 flex justify-between items-center text-left focus:outline-none group"
+                onClick={onClick}
+            >
+                <span className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isOpen ? "text-blue-600" : "text-slate-900 group-hover:text-blue-600"}`}>
+                    {question}
+                </span>
+                <span className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                    <ChevronDown className={`w-6 h-6 ${isOpen ? "text-blue-600" : "text-slate-400"}`} />
+                </span>
+            </button>
+            <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}>
+                <div className="overflow-hidden">
+                    <p className="text-slate-600 leading-relaxed text-base md:text-lg">
+                        {answer}
+                    </p>
                 </div>
             </div>
+        </div>
+    );
+};
 
-            {/* 🔹 TECHNOLOGY OVERVIEW */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <span className="text-blue-600 font-bold tracking-widest text-xs uppercase mb-4 block">Technology Overview</span>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-slate-900">Beyond Electrolysis</h2>
-                    <p className="text-lg text-slate-600 leading-relaxed mb-12">
-                        HELIONYX has developed a novel green hydrogen production approach that operates without conventional electrolyzers.
-                        The system is fully emissions-free at point of production and engineered for:
-                    </p>
-                    <div className="grid sm:grid-cols-2 gap-6 text-left max-w-2xl mx-auto">
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 className="text-green-600 w-5 h-5 flex-shrink-0" />
-                            <span className="text-slate-800 font-medium">Industrial reliability</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 className="text-green-600 w-5 h-5 flex-shrink-0" />
-                            <span className="text-slate-800 font-medium">Modular scalability</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 className="text-green-600 w-5 h-5 flex-shrink-0" />
-                            <span className="text-slate-800 font-medium">Distributed deployment</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 className="text-green-600 w-5 h-5 flex-shrink-0" />
-                            <span className="text-slate-800 font-medium">Real-world operation</span>
-                        </div>
-                    </div>
-                    <div className="mt-12 p-6 bg-slate-50 border border-slate-200 rounded-lg inline-block">
-                        <p className="text-slate-700 italic font-medium">
-                            "This is not a laboratory concept. The architecture is designed with commercial deployment constraints in mind."
+const FloatingSticker = ({ icon: Icon, color, delay, top, left, right, bottom }: any) => (
+    <motion.div
+        className={`absolute z-0 opacity-10 ${color}`}
+        style={{ top, left, right, bottom }}
+        animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay }}
+    >
+        <Icon className="w-24 h-24 md:w-32 md:h-32" />
+    </motion.div>
+);
+
+const SectionHeader = ({ label, title, description, light = false }: { label: string, title: string, description?: string, light?: boolean }) => (
+    <div className="mb-12 md:mb-16 max-w-3xl">
+        <span className={`font-bold tracking-widest text-xs uppercase mb-4 block ${light ? "text-blue-400" : "text-blue-600"}`}>
+            {label}
+        </span>
+        <h2 className={`text-3xl md:text-5xl font-extrabold mb-6 leading-tight ${light ? "text-white" : "text-slate-900"}`}>
+            {title}
+        </h2>
+        {description && (
+            <p className={`text-lg md:text-xl leading-relaxed ${light ? "text-slate-300" : "text-slate-600"}`}>
+                {description}
+            </p>
+        )}
+    </div>
+);
+
+export default function TechnologyPage() {
+    const [openFAQ, setOpenFAQ] = useState<number | null>(0);
+
+    const toggleFAQ = (index: number) => {
+        setOpenFAQ(openFAQ === index ? null : index);
+    };
+
+    return (
+        <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100 font-sans w-full overflow-x-hidden">
+            <Navbar />
+
+            {/* HERO SECTION */}
+            <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-900">
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src="/images/techno/hero img.png"
+                        alt="HYFU SOFC Platform"
+                        fill
+                        className="object-cover opacity-80"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent"></div>
+                </div>
+
+                <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20">
+                    <div className="max-w-3xl">
+                        <span className="inline-flex items-center gap-2 py-2 px-4 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-xs uppercase tracking-widest mb-6 backdrop-blur-md">
+                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                            Technology Platform
+                        </span>
+                        <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+                            HYFU Solid Oxide <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Fuel Cell (SOFC)</span> Platform
+                        </h1>
+                        <p className="text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
+                            Explaining the science. Proving the performance.
                         </p>
                     </div>
                 </div>
+            </div>
+
+            {/* INTRODUCTION */}
+            <AnimatedSection className="py-12 md:py-20 bg-white border-b border-slate-100">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <p className="text-xl md:text-2xl font-light leading-relaxed text-slate-800 mb-8">
+                        HYFU’s technology platform is built on industrial-grade Solid Oxide Fuel Cell (SOFC) systems engineered for <span className="font-semibold text-blue-600">continuous, high-efficiency power generation</span>.
+                    </p>
+                    <p className="text-slate-600 text-lg leading-relaxed max-w-3xl mx-auto">
+                        Unlike combustion-based generation, HYFU’s SOFC systems convert chemical energy directly into electricity, enabling step-change improvements in efficiency, emissions, and durability. The result is a power platform suited not for labs or pilots, but for real-world, mission-critical energy applications.
+                    </p>
+                </div>
             </AnimatedSection>
 
-            {/* 🔹 CORE INNOVATION */}
-            <AnimatedSection className="py-12 md:py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div>
-                        <span className="text-green-600 font-bold tracking-widest text-xs uppercase mb-4 block">Core Innovation</span>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-6 md:mb-8 text-slate-900 leading-tight">Pulsed Plasma-Assisted Water Activation</h2>
-                        <div className="space-y-6 text-slate-600 text-lg leading-relaxed">
-                            <p>
-                                Unlike traditional electrolysis, which relies on continuous DC voltage across fixed electrodes, the HELIONYX platform uses <strong className="text-slate-900">pulsed electrical energy within a controlled non-thermal plasma environment.</strong>
-                            </p>
-                            <p>
-                                This approach exploits electromagnetic frequency ranges where water molecule excitation is more efficient, reducing the total energy required for dissociation.
+            {/* 1. TECHNOLOGY OVERVIEW */}
+            <AnimatedSection className="py-12 md:py-16 bg-slate-50 relative overflow-hidden">
+                <FloatingSticker icon={Atom} color="text-blue-500" top="5%" right="5%" delay={0} />
+                <FloatingSticker icon={Activity} color="text-slate-400" bottom="10%" left="5%" delay={2} />
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <SectionHeader
+                        label="1. Technology Overview"
+                        title="High-temperature electrochemical power, engineered for industry"
+                        description="HYFU’s SOFC platform is a high-temperature electrochemical power system that produces electricity through ionic transport rather than combustion."
+                    />
+
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <p className="text-slate-600 text-lg mb-8 leading-relaxed">
+                                Operating temperatures typically range between 700–850°C, enabling high reaction kinetics, internal fuel reforming, and exceptional electrical efficiency.
                             </p>
 
-                            <h4 className="font-bold text-slate-900 mt-6 mb-4">Why this matters:</h4>
-                            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                                <li className="flex gap-2 items-center"><Zap className="w-4 h-4 text-blue-600" /> Lower energy losses</li>
-                                <li className="flex gap-2 items-center"><Thermometer className="w-4 h-4 text-blue-600" /> Reduced heat generation</li>
-                                <li className="flex gap-2 items-center"><Maximize2 className="w-4 h-4 text-blue-600" /> Higher effective reaction area</li>
-                                <li className="flex gap-2 items-center"><Activity className="w-4 h-4 text-blue-600" /> Improved system efficiency</li>
+                            <div className="space-y-8">
+                                <div className="bg-white p-8 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 transition-all hover:-translate-y-1 hover:shadow-xl">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                        <Activity className="w-5 h-5 text-blue-600" /> Core Characteristics
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        {[
+                                            "Electrochemical (non-combustion) power generation",
+                                            "High operating temperature → high efficiency",
+                                            "Continuous baseload operation",
+                                            "Minimal moving parts → low mechanical failure risk"
+                                        ].map((item, i) => (
+                                            <li key={i} className="flex items-center gap-3 text-slate-600">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div className="bg-white p-8 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 transition-all hover:-translate-y-1 hover:shadow-xl">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                        <Zap className="w-5 h-5 text-blue-600" /> Technology Value
+                                    </h3>
+                                    <ul className="space-y-3">
+                                        {[
+                                            "Electrical efficiency materially higher than engines or turbines",
+                                            "Ultra-low local emissions",
+                                            "Stable output across wide load ranges"
+                                        ].map((item, i) => (
+                                            <li key={i} className="flex items-center gap-3 text-slate-600">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-green-400"></div>
+                                                {item}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative w-full flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-blue-900 rounded-3xl p-10 text-white shadow-2xl border-[6px] border-white">
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold mb-4">Business Impact</h3>
+                                <p className="text-blue-100 text-lg leading-relaxed max-w-sm mx-auto">
+                                    SOFCs shift power generation from fuel-burning machinery to solid-state energy conversion, fundamentally improving reliability and lifetime economics.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 2. WHAT IS SOFC */}
+            <AnimatedSection className="py-12 md:py-16 bg-white relative overflow-hidden">
+                <FloatingSticker icon={Zap} color="text-yellow-500" top="10%" left="10%" delay={1} />
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white bg-white">
+                            <Image
+                                src="/images/techno/What Is SOFC Technology.png"
+                                alt="What is SOFC Technology"
+                                fill
+                                className="object-contain p-8"
+                            />
+                        </div>
+                        <div className="order-1 lg:order-2">
+                            <SectionHeader
+                                label="2. The Fundamentals"
+                                title="What Is SOFC Technology"
+                                description="A Solid Oxide Fuel Cell generates electricity by transporting oxygen ions (O²⁻) through a solid ceramic electrolyte from cathode to anode."
+                            />
+
+                            <div className="bg-slate-50 rounded-3xl p-8 border border-white shadow-sm mb-8">
+                                <h4 className="font-bold text-slate-900 mb-4">Key Components</h4>
+                                <ul className="space-y-4">
+                                    <li className="flex gap-4">
+                                        <span className="font-bold text-blue-600 min-w-[100px]">Cathode</span>
+                                        <span className="text-slate-600">Oxygen reduction</span>
+                                    </li>
+                                    <li className="flex gap-4">
+                                        <span className="font-bold text-blue-600 min-w-[100px]">Electrolyte</span>
+                                        <span className="text-slate-600">Oxygen-ion conducting ceramic</span>
+                                    </li>
+                                    <li className="flex gap-4">
+                                        <span className="font-bold text-blue-600 min-w-[100px]">Anode</span>
+                                        <span className="text-slate-600">Fuel oxidation</span>
+                                    </li>
+                                    <li className="flex gap-4">
+                                        <span className="font-bold text-blue-600 min-w-[100px]">Interconnects</span>
+                                        <span className="text-slate-600">Current collection and gas separation</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div className="space-y-2 text-slate-600">
+                                <h4 className="font-bold text-slate-900 mb-2">Why High Temperature Matters</h4>
+                                <p>• Enables fast ion conduction</p>
+                                <p>• Allows internal reforming of hydrocarbons</p>
+                                <p>• Eliminates need for precious metal catalysts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 3. HOW IT WORKS */}
+            <AnimatedSection className="py-12 md:py-16 bg-slate-50 border-y border-slate-200 relative overflow-hidden">
+                <FloatingSticker icon={Factory} color="text-slate-500" bottom="5%" right="10%" delay={3} />
+                <div className="max-w-7xl mx-auto px-6">
+                    <SectionHeader
+                        label="3. System Architecture"
+                        title="How HYFU SOFC Systems Work"
+                        description="From fuel input to grid-quality AC power. HYFU’s system architecture integrates the SOFC stack with a tightly engineered balance-of-plant (BoP)."
+                    />
+
+                    <div className="relative h-[600px] w-full rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white mb-16 bg-white">
+                        <Image
+                            src="/images/techno/How HYFU SOFC Systems Work.jpg"
+                            alt="How HYFU Systems Work Diagram"
+                            fill
+                            className="object-contain p-4"
+                        />
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-12">
+                        <div>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-6">System Flow</h3>
+                            <div className="space-y-4">
+                                {[
+                                    "Fuel conditioning and pressure control",
+                                    "Internal or external reforming (fuel-dependent)",
+                                    "Electrochemical conversion in SOFC stacks",
+                                    "DC power conditioning",
+                                    "Inversion to grid-quality AC",
+                                    "Thermal recovery and exhaust management"
+                                ].map((step, i) => (
+                                    <div key={i} className="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                        <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 font-bold flex items-center justify-center text-sm">{i + 1}</div>
+                                        <span className="text-slate-700 font-medium">{step}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="bg-blue-900 text-white rounded-3xl p-10 flex flex-col justify-center h-fit shadow-2xl border-[6px] border-white">
+                            <h3 className="text-2xl font-bold mb-6">System-Level Priorities</h3>
+                            <ul className="space-y-6">
+                                <li className="flex items-center gap-4">
+                                    <Thermometer className="w-6 h-6 text-blue-400" />
+                                    <span className="text-lg">Thermal stability</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <Gauge className="w-6 h-6 text-blue-400" />
+                                    <span className="text-lg">Fuel utilization optimization</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <Zap className="w-6 h-6 text-blue-400" />
+                                    <span className="text-lg">Electrical efficiency maximization</span>
+                                </li>
+                                <li className="flex items-center gap-4">
+                                    <ShieldCheck className="w-6 h-6 text-blue-400" />
+                                    <span className="text-lg">Fault-tolerant operation</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    {/* Core Innovation Visual */}
-                    <div className="relative h-[250px] md:h-[400px] w-full bg-slate-800 rounded-lg overflow-hidden shadow-2xl flex items-center justify-center border border-slate-700">
-                        <Image
-                            src="/images/techno/high-voltage-electrical-arcs-experiment.png"
-                            alt="Pulsed Plasma Experiment"
-                            fill
-                            className="object-cover opacity-90"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
-                        <div className="absolute bottom-6 left-6 text-white z-10">
-                            <h4 className="font-bold text-lg mb-1">Non-Thermal Plasma</h4>
-                            <p className="text-xs text-slate-300">High-frequency molecular excitation</p>
-                        </div>
-                    </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 KEY PERFORMANCE SNAPSHOT */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 text-center">
-                    <span className="text-blue-600 font-bold tracking-widest text-xs uppercase mb-6 md:mb-8 block">Performance Snapshot</span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                        {[
-                            { val: "30–35", unit: "kWh/kg H₂", label: "Pilot-validated energy input range" },
-                            { val: "~70%", unit: "Reduction", label: "vs conventional electrolysis" },
-                            { val: "Sub-$2", unit: "/kg LCOH", label: "Trajectory under industrial tariffs" },
-                            { val: "25–50", unit: "kg/hr", label: "Linear, modular scale architecture" },
-                        ].map((item, i) => (
-                            <div key={i} className="p-6 md:p-8 bg-white border border-slate-100 rounded-xl shadow-lg hover:shadow-xl transition-all border-b-4 border-b-blue-500">
-                                <h3 className="text-4xl font-bold text-slate-900 mb-1">{item.val}</h3>
-                                <p className="text-blue-600 text-sm font-bold uppercase tracking-wider mb-4">{item.unit}</p>
-                                <p className="text-slate-500 text-sm leading-snug">{item.label}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 HOW IT WORKS */}
-            <AnimatedSection className="py-12 md:py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-4xl mx-auto px-6 text-center mb-10 md:mb-16">
-                    <h2 className="text-3xl font-bold mb-6 text-slate-900">Distributed Reaction Architecture</h2>
-                    <p className="text-base md:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-                        The HELIONYX system incorporates a proprietary catalytic medium dispersed within the water volume, creating millions of microscopic reaction sites.
-                    </p>
-                </div>
-
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-6 md:gap-12 mb-10 md:mb-16">
-                    {/* Diagram 1 */}
-                    <div className="relative h-[250px] md:h-[300px] w-full bg-white rounded-lg border border-slate-200 overflow-hidden shadow-lg p-2">
-                        <Image
-                            src="/images/techno/Hydrogen-Diagram.jpg"
-                            alt="Hydrogen Process Diagram"
-                            fill
-                            className="object-contain"
-                        />
-                    </div>
-                    {/* Diagram 2 */}
-                    <div className="relative h-[250px] md:h-[300px] w-full bg-white rounded-lg border border-slate-200 overflow-hidden shadow-lg p-2">
-                        <Image
-                            src="/images/techno/renewable-energy-hydrogen-fuel-cycle-diagram.jpg"
-                            alt="Fuel Cycle Diagram"
-                            fill
-                            className="object-contain"
-                        />
-                    </div>
-                </div>
-
-                <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
-                    {[
-                        { title: "1. Cold Plasma Generation", desc: "Pulsed electrical fields generate a non-thermal plasma environment, optimized to activate water molecules without excessive heat." },
-                        { title: "2. Catalytic-Assisted Dissociation", desc: "Metal-enhanced microstructures act as distributed reaction centers, intensifying local electric fields and facilitating hydrogen release." },
-                        { title: "3. Hydrogen Separation", desc: "High-purity hydrogen (up to 99.99%) is separated with minimal downstream processing requirements." }
-                    ].map((step, i) => (
-                        <div key={i} className="relative p-8 bg-white rounded-lg shadow-sm border border-slate-200">
-                            <div className="absolute -top-4 -left-4 w-10 h-10 bg-blue-600 text-white font-bold flex items-center justify-center rounded-full shadow-lg">
-                                {i + 1}
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-900 mb-4 mt-2">{step.title}</h3>
-                            <p className="text-slate-600 text-sm leading-relaxed">{step.desc}</p>
-                        </div>
-                    ))}
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 TECHNICAL ADVANTAGES */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
+            {/* 4. PERFORMANCE COMPARISON */}
+            <AnimatedSection className="py-12 md:py-16 bg-white relative overflow-hidden">
+                <FloatingSticker icon={BarChart3} color="text-green-500" top="15%" right="15%" delay={1.5} />
                 <div className="max-w-7xl mx-auto px-6">
-                    <h2 className="text-3xl font-bold mb-12 text-center text-slate-900">Technical Advantages</h2>
-                    <div className="grid md:grid-cols-3 gap-8">
-                        {[
-                            { title: "Energy Efficiency", desc: "30–35 kWh/kg versus 50–55 kWh/kg for conventional electrolysis." },
-                            { title: "No Precious Metals", desc: "Avoids platinum-group metals, reducing cost volatility and supply-chain risk." },
-                            { title: "Modular by Design", desc: "25–50 kg/hour units scale linearly. A 500 kg/hour system uses multiple identical modules." },
-                            { title: "Near-Ambient Operation", desc: "Atmospheric pressure and moderate operating temperatures reduce safety and cooling complexity." },
-                            { title: "High Purity Output", desc: "Hydrogen purity suitable for industrial and chemical applications without extensive polishing." },
-                            { title: "Fast Dynamic Response", desc: "Rapid startup and shutdown enable better coupling with intermittent renewable power." },
-                        ].map((item, i) => (
-                            <div key={i} className="flex gap-4 items-start p-6 rounded-lg hover:bg-slate-50 transition-colors">
-                                <div className="mt-1 w-2 h-2 rounded-full bg-green-500 shrink-0" />
-                                <div>
-                                    <h4 className="font-bold text-slate-900 mb-2">{item.title}</h4>
-                                    <p className="text-slate-600 text-sm">{item.desc}</p>
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <SectionHeader
+                                label="4. Structural Advantages"
+                                title="Why SOFC Outperforms Conventional Power"
+                                description="SOFCs behave more like solid-state electronics than rotating machinery—predictable, quiet, and stable."
+                            />
+
+                            <div className="mb-10">
+                                <h4 className="font-bold text-slate-900 mb-4 text-lg">Key Structural Differences</h4>
+                                <div className="flex gap-4">
+                                    {["No flame front", "No piston/turbine", "No thermal shock"].map((item, i) => (
+                                        <span key={i} className="px-4 py-2 bg-red-50 text-red-600 rounded-lg text-sm font-medium border border-red-100">
+                                            {item}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </AnimatedSection>
 
-            {/* 🔹 TECHNOLOGY COMPARISON TABLE */}
-            <AnimatedSection className="py-12 md:py-24 bg-slate-50 border-t border-slate-200">
-                <div className="max-w-5xl mx-auto px-6">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center text-slate-900">Conventional Electrolysis vs HELIONYX</h2>
-                    <div className="overflow-x-auto bg-white rounded-xl shadow-xl border border-slate-200">
-                        <table className="w-full text-left text-sm md:text-base">
-                            <thead className="bg-slate-100 border-b border-slate-200">
-                                <tr>
-                                    <th className="py-5 px-6 font-semibold text-slate-700">Metric</th>
-                                    <th className="py-5 px-6 font-semibold text-slate-500">Conventional Electrolysis</th>
-                                    <th className="py-5 px-6 font-bold text-blue-700 bg-blue-50/50">HELIONYX Platform</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-100">
-                                {[
-                                    { metric: "Energy Input", conv: "50–55 kWh/kg", hel: "30–35 kWh/kg" },
-                                    { metric: "Typical CAPEX", conv: "$1,000–1,500 / kW", hel: "Comparable, lower LCOH" },
-                                    { metric: "Catalysts", conv: "Platinum-group metals", hel: "Common materials" },
-                                    { metric: "Architecture", conv: "Centralized", hel: "Modular / Distributed" },
-                                    { metric: "Cooling Needs", conv: "High", hel: "Minimal" },
-                                    { metric: "LCOH Potential", conv: "$3.5–4.5/kg", hel: "Sub-$2/kg trajectory" },
-                                ].map((row, i) => (
-                                    <tr key={i} className="hover:bg-slate-50 transition-colors">
-                                        <td className="py-4 px-6 font-medium text-slate-900">{row.metric}</td>
-                                        <td className="py-4 px-6 text-slate-500">{row.conv}</td>
-                                        <td className="py-4 px-6 font-bold text-blue-700 bg-blue-50/30">{row.hel}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <p className="text-center text-xs text-slate-400 mt-6 italic">Performance based on pilot-scale validation and ongoing optimization.</p>
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 DEPLOYMENT & APPLICATIONS */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
-                    {/* Deployment */}
-                    <div>
-                        <h3 className="text-2xl font-bold mb-6 text-slate-900 flex items-center gap-3">
-                            <Layers className="text-blue-600" /> Deployment Model
-                        </h3>
-                        {/* Deployment Image */}
-                        <div className="relative h-64 w-full rounded-lg overflow-hidden mb-8 shadow-lg">
+                            <div className="bg-slate-50 p-8 rounded-3xl border border-white shadow-sm">
+                                <h4 className="font-bold text-slate-900 mb-6">Electrical Efficiency Comparison</h4>
+                                <div className="space-y-6">
+                                    <div>
+                                        <div className="flex justify-between text-sm font-bold mb-2">
+                                            <span className="text-blue-700">HYFU SOFC</span>
+                                            <span className="text-slate-900">~55–60%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-200 rounded-full h-3">
+                                            <div className="bg-blue-600 h-3 rounded-full w-[60%]"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between text-sm font-medium mb-2">
+                                            <span className="text-slate-600">Gas Engine</span>
+                                            <span className="text-slate-900">~35–42%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-200 rounded-full h-3">
+                                            <div className="bg-slate-400 h-3 rounded-full w-[42%]"></div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="flex justify-between text-sm font-medium mb-2">
+                                            <span className="text-slate-600">Small Turbine</span>
+                                            <span className="text-slate-900">~28–38%</span>
+                                        </div>
+                                        <div className="w-full bg-slate-200 rounded-full h-3">
+                                            <div className="bg-slate-400 h-3 rounded-full w-[35%]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative h-[600px] w-full rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white bg-white">
+                            <div className="absolute inset-0 bg-slate-50/30"></div>
                             <Image
-                                src="/images/techno/hydrogen-electrolyzer-stack-industrial-equipment.webp"
-                                alt="Industrial Equipment"
+                                src="/images/techno/Why SOFC Outperforms Conventional Power.webp"
+                                alt="Efficiency Comparison"
                                 fill
-                                className="object-cover"
+                                className="object-contain p-10 relative z-10"
                             />
                         </div>
-
-                        <p className="text-slate-600 mb-6">HELIONYX is engineered for deployment, not demonstration.</p>
-                        <ul className="space-y-3 text-slate-700">
-                            <li className="flex gap-3"><span className="text-green-500">✓</span> Modular production units</li>
-                            <li className="flex gap-3"><span className="text-green-500">✓</span> Pilot systems operational</li>
-                            <li className="flex gap-3"><span className="text-green-500">✓</span> Roadmap toward TRL 7–8</li>
-                        </ul>
                     </div>
+                </div>
+            </AnimatedSection>
 
-                    {/* Applications */}
-                    <div>
-                        <h3 className="text-2xl font-bold mb-6 text-slate-900 flex items-center gap-3">
-                            <Globe2 className="text-blue-600" /> Target Applications
-                        </h3>
-                        <div className="grid sm:grid-cols-2 gap-4">
-                            {[
-                                { title: "Refineries", desc: "On-site hydrogen for hydroprocessing", img: "/images/techno/green-hydrogen-industrial-pipeline-infrastructure.jpg" },
-                                { title: "Ammonia & Methanol", desc: "Cost-competitive green feedstock", img: "/images/techno/green-ammonia-production-process-chart.png" },
-                                { title: "Steel & DRI", desc: "Low-carbon steel pathways", img: "/images/techno/green-hydrogen-adoption-stands-by-industry.png" },
-                                { title: "Mobility", desc: "Distributed refueling infrastructure", img: "/images/techno/EV Charging Close-up.jpg" },
-                            ].map((app, i) => (
-                                <div key={i} className="group bg-white rounded-lg overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-all">
-                                    <div className="relative h-32 w-full">
-                                        <Image
-                                            src={app.img}
-                                            alt={app.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    </div>
-                                    <div className="p-4">
-                                        <h4 className="font-bold text-slate-900 text-sm mb-1">{app.title}</h4>
-                                        <p className="text-xs text-slate-600 leading-snug">{app.desc}</p>
-                                    </div>
+            {/* 5. STACK DESIGN */}
+            <AnimatedSection className="py-12 md:py-16 bg-slate-50 border-t border-slate-200 relative overflow-hidden">
+                <FloatingSticker icon={Layers} color="text-blue-400" top="10%" left="5%" delay={0.5} />
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="relative h-[550px] w-full rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white bg-white">
+                            <Image
+                                src="/images/techno/Stack Design & Materials.png"
+                                alt="Stack Design"
+                                fill
+                                className="object-contain p-6"
+                            />
+                        </div>
+                        <div>
+                            <SectionHeader
+                                label="5. Materials Engineering"
+                                title="Stack Design & Engineered Ceramics"
+                                description="HYFU SOFC stacks are multi-layer electrochemical assemblies optimized for ionic conductivity, mechanical stability, and thermal cycling resistance."
+                            />
+
+                            <div className="grid sm:grid-cols-2 gap-6">
+                                <div className="bg-white p-6 rounded-2xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] border border-slate-100 group hover:border-blue-100 transition-colors">
+                                    <Layers className="w-8 h-8 text-blue-600 mb-4" />
+                                    <h4 className="font-bold text-slate-900 mb-2">Material System</h4>
+                                    <ul className="text-sm text-slate-600 space-y-1">
+                                        <li>• Electrolyte: YSZ-based ceramics</li>
+                                        <li>• Anode: Nickel-ceramic cermet</li>
+                                        <li>• Cathode: Mixed ionic-electronic oxides</li>
+                                    </ul>
                                 </div>
-                            ))}
+                                <div className="bg-white p-6 rounded-2xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] border border-slate-100 group hover:border-blue-100 transition-colors">
+                                    <ShieldCheck className="w-8 h-8 text-blue-600 mb-4" />
+                                    <h4 className="font-bold text-slate-900 mb-2">Design Focus</h4>
+                                    <ul className="text-sm text-slate-600 space-y-1">
+                                        <li>• Uniform temperature gradients</li>
+                                        <li>• Gas sealing integrity</li>
+                                        <li>• Long-term redox stability</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 DESIGNED FOR INDIA (Callout) */}
-            <AnimatedSection className="py-20 bg-slate-50 border-t border-slate-200">
+            {/* 6. FUEL FLEXIBILITY */}
+            <AnimatedSection className="py-12 md:py-16 bg-white relative overflow-hidden">
+                <FloatingSticker icon={Flame} color="text-orange-500" top="5%" right="5%" delay={2.5} />
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-blue-50/50 -skew-x-12 z-0"></div>
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <SectionHeader
+                        label="6. Future Proof"
+                        title="Fuel Flexibility & Hydrogen Readiness"
+                        description="HYFU SOFC systems are designed for fuel-agnostic electrochemical operation. Customers can deploy today on available fuels and transition to hydrogen without stranded assets."
+                    />
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                        {[
+                            { name: "Natural Gas", status: "Available Now", color: "bg-slate-800" },
+                            { name: "Biogas / RNG", status: "Carbon Neutral", color: "bg-green-600" },
+                            { name: "Hydrogen Blends", status: "Transition Ready", color: "bg-blue-600" },
+                            { name: "Pure Hydrogen", status: "Future Proof", color: "bg-cyan-500" }
+                        ].map((fuel, i) => (
+                            <div key={i} className={`p-8 rounded-3xl text-white shadow-xl ${fuel.color} flex flex-col justify-between min-h-[180px] hover:scale-105 transition-transform duration-300`}>
+                                <Flame className="w-8 h-8 opacity-80" />
+                                <div>
+                                    <h4 className="font-bold text-lg">{fuel.name}</h4>
+                                    <span className="text-xs opacity-80 uppercase tracking-wider">{fuel.status}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="relative h-[600px] w-full rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white bg-white">
+                        <Image
+                            src="/images/techno/Fuel Flexibility & Hydrogen Readiness.jpg"
+                            alt="Fuel Flexibility Diagram"
+                            fill
+                            className="object-contain p-6"
+                        />
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 7. PERFORMANCE & RELIABILITY */}
+            <AnimatedSection className="py-12 md:py-16 bg-slate-900 text-white relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <span className="font-bold tracking-widest text-xs uppercase mb-4 block text-blue-400">
+                                7. Industrial Duty
+                            </span>
+                            <h2 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight">
+                                Performance Metrics & Reliability
+                            </h2>
+                            <p className="text-lg text-slate-300 mb-10 leading-relaxed">
+                                Designed for continuous industrial duty with no rotating machinery and redundant controls.
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-8">
+                                {[
+                                    { label: "Electrical Efficiency", val: "55–60%" },
+                                    { label: "CHP Efficiency", val: ">85%" },
+                                    { label: "Availability", val: ">95%" },
+                                    { label: "MTBF", val: ">40k hrs" }
+                                ].map((stat, i) => (
+                                    <div key={i} className="border-l-2 border-blue-500 pl-6">
+                                        <div className="text-3xl font-bold mb-1">{stat.val}</div>
+                                        <div className="text-sm text-slate-400 uppercase tracking-wider">{stat.label}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="relative h-[550px] w-full rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-700 bg-slate-800">
+                            <Image
+                                src="/images/techno/Performance Metrics & Reliability.png"
+                                alt="Performance Metrics Chart"
+                                fill
+                                className="object-contain p-6"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 8. SAFETY & CONTROLS */}
+            <AnimatedSection className="py-12 md:py-16 bg-white relative overflow-hidden">
+                <FloatingSticker icon={ShieldCheck} color="text-blue-600" bottom="10%" left="10%" delay={1} />
+                <div className="max-w-7xl mx-auto px-6">
+                    <SectionHeader
+                        label="8. Industrial-Grade Safety"
+                        title="Safety, Controls & Monitoring"
+                        description="High-temperature systems require control precision, not operator intervention. HYFU systems incorporate multi-layered safety and control logic."
+                    />
+
+                    <div className="grid lg:grid-cols-2 gap-12">
+                        <div className="grid gap-6">
+                            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex gap-4">
+                                <Lock className="w-10 h-10 text-red-500" />
+                                <div>
+                                    <h4 className="font-bold text-slate-900 mb-2">Safety Architecture</h4>
+                                    <ul className="text-sm text-slate-600 space-y-1">
+                                        <li>• Continuous gas detection</li>
+                                        <li>• Automated purge/isolation</li>
+                                        <li>• Thermal runaway prevention</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 flex gap-4">
+                                <Server className="w-10 h-10 text-blue-500" />
+                                <div>
+                                    <h4 className="font-bold text-slate-900 mb-2">Control Systems</h4>
+                                    <ul className="text-sm text-slate-600 space-y-1">
+                                        <li>• Real-time SCADA integration</li>
+                                        <li>• Predictive diagnostics</li>
+                                        <li>• Remote monitoring center</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white bg-white">
+                            <Image
+                                src="/images/techno/Safety, Controls & Monitoring.gif"
+                                alt="Controls Interface"
+                                fill
+                                unoptimized
+                                className="object-contain p-6"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 9. ROADMAP */}
+            <AnimatedSection className="py-12 md:py-16 bg-slate-50 border-t border-slate-200">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold mb-8 text-slate-900">Designed for India</h2>
-                    <p className="text-slate-600 mb-12">HELIONYX is optimized for India’s hydrogen deployment realities:</p>
-                    <div className="grid md:grid-cols-3 gap-8 text-left">
-                        <div className="bg-white p-6 rounded shadow-sm">
-                            <h4 className="font-bold text-slate-900 mb-2">Grid Compatibility</h4>
-                            <p className="text-sm text-slate-600">Operates efficiently with India’s grid mix and renewable integration targets.</p>
-                        </div>
-                        <div className="bg-white p-6 rounded shadow-sm">
-                            <h4 className="font-bold text-slate-900 mb-2">Local Manufacturing</h4>
-                            <p className="text-sm text-slate-600">High local content potential aligned with Make-in-India priorities.</p>
-                        </div>
-                        <div className="bg-white p-6 rounded shadow-sm">
-                            <h4 className="font-bold text-slate-900 mb-2">Climate Resilience</h4>
-                            <p className="text-sm text-slate-600">Designed to operate reliably across high temperatures, humidity, and variable conditions.</p>
-                        </div>
+                    <h2 className="text-3xl font-bold mb-6 text-slate-900">Technology Roadmap</h2>
+                    <p className="text-lg text-slate-600 mb-12">
+                        HYFU’s technology roadmap focuses on incremental, bankable improvements—improving cost, efficiency, and durability.
+                    </p>
+
+                    <div className="grid md:grid-cols-4 gap-4">
+                        {[
+                            "Higher power density stacks",
+                            "Reduced degradation rates",
+                            "Hydrogen-optimized operation",
+                            "Lower BoP parasitics"
+                        ].map((item, i) => (
+                            <div key={i} className="bg-white p-8 rounded-3xl shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] border border-slate-100 flex flex-col items-center gap-4 hover:-translate-y-2 transition-all duration-300">
+                                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold">{i + 1}</div>
+                                <p className="font-bold text-slate-800 text-sm leading-snug">{item}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 FINAL CTA */}
-            <div className="py-24 bg-gradient-to-br from-sky-100 to-blue-100 text-slate-900 text-center px-6 border-t border-blue-300/50">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-slate-900">Ready to learn more?</h2>
-                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-                    <Link href="/contact" className="px-6 py-3 md:px-8 md:py-4 bg-blue-600 text-white font-bold rounded hover:bg-blue-500 transition-colors shadow-lg shadow-blue-900/50 text-sm md:text-base">
-                        Request Technical Brief
-                    </Link>
-                    <Link href="/partnership" className="px-6 py-3 md:px-8 md:py-4 bg-transparent border border-slate-400 text-slate-900 font-bold rounded hover:bg-slate-200/50 transition-colors text-sm md:text-base">
-                        Partner With Us
-                    </Link>
+            {/* FAQ */}
+            <div className="bg-white py-12 md:py-16 border-t border-slate-100">
+                <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Frequently Asked Questions</h2>
+                    <div className="space-y-4">
+                        {[
+                            { q: "Is SOFC technology proven or experimental?", a: "SOFCs have decades of development history and are now deployed in commercial industrial systems worldwide." },
+                            { q: "Why does operating at high temperature help efficiency?", a: "Higher temperatures increase ionic conductivity and allow direct fuel utilization without extensive external reforming." },
+                            { q: "Can SOFCs ramp power output quickly?", a: "They are optimized for baseload operation with controlled ramp rates, not fast transient cycling." },
+                            { q: "How does degradation affect lifetime?", a: "Modern SOFC systems are engineered to limit degradation to low single-digit percentages per year under steady operation." },
+                            { q: "Is hydrogen mandatory for SOFC operation?", a: "No. Hydrogen readiness enables future transition, but SOFCs operate efficiently on today’s fuels." }
+                        ].map((faq, i) => (
+                            <FAQItem
+                                key={i}
+                                question={faq.q}
+                                answer={faq.a}
+                                isOpen={openFAQ === i}
+                                onClick={() => toggleFAQ(i)}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
 
             <Footer />
-        </main >
+        </main>
     );
 }

@@ -10,7 +10,7 @@ export default function Footer() {
             {/* Top Accent Gradient Line */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-sky-400 to-green-400" />
 
-            <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-24">
+            <div className="max-w-7xl mx-auto px-6 py-12 md:py-20 grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-24">
                 {/* Brand Column */}
                 <div className="col-span-1 md:col-span-2 space-y-6">
                     <div className="space-y-3">
@@ -58,7 +58,7 @@ export default function Footer() {
                         </li>
                         <li>
                             <Link href="/market" className="flex items-center group hover:text-blue-600 transition-colors">
-                                Market Opportunity
+                                Markets & Scale
                                 <ArrowUpRight className="w-3 h-3 ml-1 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all text-blue-400" />
                             </Link>
                         </li>

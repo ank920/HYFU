@@ -1,485 +1,552 @@
 "use client";
 
 import AnimatedHero from "@/components/Hero";
-import AnimatedSection from "@/components/ui/AnimatedSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Zap, BarChart3, Layers, Globe2, ShieldCheck, Factory, TrendingUp } from "lucide-react";
+import { ArrowRight, Zap, CheckCircle2, Factory, Layers, ShieldCheck, Leaf, Activity, BarChart3, Building2, Cpu, Truck, Stethoscope, ChevronDown, Globe, Wrench } from "lucide-react";
+import AnimatedSection from "@/components/ui/AnimatedSection";
+import { useState } from "react";
+
+// --- Components ---
+
+const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) => {
+    return (
+        <div className="border-b border-slate-200 last:border-0">
+            <button
+                className="w-full py-6 flex justify-between items-center text-left focus:outline-none group"
+                onClick={onClick}
+            >
+                <span className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isOpen ? "text-blue-600" : "text-slate-900 group-hover:text-blue-600"}`}>
+                    {question}
+                </span>
+                <span className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                    <ChevronDown className={`w-6 h-6 ${isOpen ? "text-blue-600" : "text-slate-400"}`} />
+                </span>
+            </button>
+            <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}>
+                <div className="overflow-hidden">
+                    <p className="text-slate-600 leading-relaxed text-base md:text-lg">
+                        {answer}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SectionHeader = ({ label, title, description, light = false }: { label: string, title: string, description?: string, light?: boolean }) => (
+    <div className="mb-12 md:mb-20 max-w-3xl">
+        <span className={`font-bold tracking-widest text-xs uppercase mb-4 block ${light ? "text-blue-400" : "text-blue-600"}`}>
+            {label}
+        </span>
+        <h2 className={`text-3xl md:text-5xl font-extrabold mb-6 leading-tight ${light ? "text-white" : "text-slate-900"}`}>
+            {title}
+        </h2>
+        {description && (
+            <p className={`text-lg md:text-xl leading-relaxed ${light ? "text-slate-300" : "text-slate-600"}`}>
+                {description}
+            </p>
+        )}
+    </div>
+);
 
 export default function Home() {
+    const [openFAQ, setOpenFAQ] = useState<number | null>(0);
+
+    const toggleFAQ = (index: number) => {
+        setOpenFAQ(openFAQ === index ? null : index);
+    };
+
     return (
         <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100 font-sans w-full overflow-x-hidden">
             <Navbar />
-            <AnimatedHero />
 
-            {/* 🔹 PERFORMANCE SNAPSHOT (Metrics) */}
-            <div className="relative z-20 px-6 bg-slate-50 py-12 md:py-24 border-b border-slate-200">
-                <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-8 md:mb-16">
-                        <span className="text-blue-600 font-bold tracking-widest text-xs uppercase block mb-3">Performance Snapshot</span>
-                        <h2 className="text-2xl md:text-4xl font-bold text-slate-900">Early indicators that define our approach</h2>
-                    </div>
+            {/* HERO SECTION */}
+            <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-50">
+                {/* Background Video/Image */}
+                <div className="absolute inset-0 z-0 h-full w-full">
+                    <Image
+                        src="/images/home page/Real-life clean energy industrial facility.png"
+                        alt="Real-life clean energy industrial facility"
+                        fill
+                        className="h-full w-full object-cover"
+                        priority
+                    />
+                    {/* Premium Gradient Overlay - Removed White Layer */}
+                    <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-400/20 rounded-full blur-[100px] animate-pulse"></div>
+                    <div className="absolute top-1/2 -left-24 w-72 h-72 bg-cyan-400/10 rounded-full blur-[80px]"></div>
+                </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {/* MetricCards - SOFC Focused */}
-                        {[
-                            { val: ">85%", label: "Electrical Efficiency", sub: "Superior LHV efficiency via SOFC technology", icon: Zap },
-                            { val: "< 35", label: "kWh / kg H₂", sub: "High-temperature steam electrolysis advantage", icon: CheckCircle2 },
-                            { val: "Reversible", label: "Power & H₂", sub: "Dual-mode operation for grid balancing", icon: Layers },
-                            { val: "Modular", label: "Stack Design", sub: "Scalable kW to MW factory-built blocks", icon: BarChart3 },
-                        ].map((m, i) => (
-                            <div key={i} className="bg-white border border-slate-200 p-6 md:p-8 rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                                <m.icon className="w-8 h-8 text-green-600 mb-6" />
-                                <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-2 tracking-tight">{m.val}</h3>
-                                <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-2">{m.label}</p>
-                                <p className="text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3 mt-3">{m.sub}</p>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Performance Visuals */}
-                    <div className="mt-8 md:mt-16 grid md:grid-cols-2 gap-4 md:gap-8">
-                        <div className="relative h-[250px] md:h-[400px] w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-white">
-                            <Image
-                                src="/images/home page/Metrics-driven, confidence, industrial-grade performance..png"
-                                alt="Metrics Driven Performance"
-                                fill
-                                className="object-cover"
-                            />
-                            {/* TODO: image missing: /images/home page/Metrics-driven, confidence, industrial-grade performance..png */}
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-                                <h4 className="font-bold text-lg">Industrial-Grade Stake</h4>
-                            </div>
-                        </div>
-                        <div className="relative h-[250px] md:h-[400px] w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-white">
-                            <Image
-                                src="/images/home page/Economics & Efficiency Visual.png"
-                                alt="Economics Efficiency"
-                                fill
-                                className="object-cover"
-                            />
-                            {/* TODO: image missing: /images/home page/Economics & Efficiency Visual.png */}
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-                                <h4 className="font-bold text-lg">Heat Integration Efficiency</h4>
-                            </div>
+                <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center pt-20">
+                    <div className="text-left animate-fade-in-up">
+                        <span className="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white/80 backdrop-blur-md text-blue-700 font-bold text-xs uppercase tracking-widest mb-8 border border-blue-100 shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                            Industrial & Infrastructure Power
+                        </span>
+                        <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold mb-8 leading-[1.1] tracking-tight text-slate-900">
+                            High-Efficiency Solid Oxide <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500">Fuel Cell Platforms</span>
+                        </h1>
+                        <p className="text-xl text-slate-600 mb-10 leading-relaxed font-light max-w-xl">
+                            Reliable, low-carbon power engineered for continuous operation, fuel flexibility, and grid-independent performance.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-5">
+                            <Link href="/contact" className="px-8 py-4 bg-gradient-to-r from-blue-700 to-blue-600 hover:from-blue-600 hover:to-blue-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-2 transform hover:-translate-y-0.5">
+                                Request Briefing <ArrowRight className="w-5 h-5" />
+                            </Link>
+                            <Link href="/technology" className="px-8 py-4 bg-white/80 backdrop-blur-sm border border-slate-200 hover:bg-white text-slate-900 font-bold rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center">
+                                View Specs
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* 🔹 THE STRUCTURAL CONSTRAINT */}
-            <AnimatedSection className="bg-white py-16 md:py-32">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    <div>
-                        <span className="text-red-600 font-bold tracking-widest text-xs uppercase mb-4 block">The Efficiency Constraint</span>
-                        <h2 className="text-3xl md:text-6xl font-extrabold mb-6 md:mb-10 text-slate-900 leading-[1.1]">Liquid water is hard <br className="hidden lg:block" /> to split.</h2>
-                        <div className="space-y-6 md:space-y-8 text-base md:text-lg text-slate-600 leading-relaxed font-light">
-                            <p>
-                                Conventional electrolysis (PEM & Alkaline) suffers from a massive thermodynamic penalty: <span className="text-slate-900 font-semibold">the phase change energy requirement.</span> Splitting liquid water requires ~30-40% more electrical energy than splitting steam.
-                            </p>
-                            <p>
-                                By operating on liquid water, existing legacy technologies are physically mandated to waste vast amounts of electricity as low-grade heat.
-                                <br /><span className="italic text-red-500 font-medium">Physics dictates the floor for PEM efficiency.</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Visual Stack for Constraint */}
-                    <div className="space-y-4 md:space-y-8">
-                        <div className="relative h-[250px] md:h-[300px] w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-100 transform hover:scale-[1.02] transition-transform duration-500">
-                            <Image
-                                src="/images/home page/Why Green Hydrogen Still Struggles to Scale.png"
-                                alt="Scaling Challenge"
-                                fill
-                                className="object-cover"
-                            />
-                            {/* TODO: image missing: /images/home page/Why Green Hydrogen Still Struggles to Scale.png */}
-                        </div>
-                        <div className="relative h-[250px] md:h-[300px] w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-100 transform hover:scale-[1.02] transition-transform duration-500 delay-100">
-                            <Image
-                                src="/images/home page/new.png"
-                                alt="Hydrogen Costs"
-                                fill
-                                className="object-contain bg-white p-4"
-                            />
-                            {/* TODO: image missing: /images/home page/new.png */}
-                        </div>
-                    </div>
+            {/* INTRO: HYFU OVERVIEW */}
+            <AnimatedSection className="py-16 bg-gradient-to-b from-white to-blue-50/30 border-b border-slate-100 relative overflow-hidden">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-slate-50/50 opacity-50 z-0"></div>
+                <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
+                    <p className="text-xl md:text-3xl font-light leading-relaxed text-slate-800 tracking-tight">
+                        <span className="font-bold text-slate-900">HYFU</span> is a clean-energy technology company focused on Solid Oxide Fuel Cell (SOFC) systems. Unlike intermittent renewables, our systems provide <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-600">always-on power</span> with predictable performance and industrial-grade reliability.
+                    </p>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 WHY EXISTING APPROACHES FALL SHORT */}
-            <AnimatedSection className="bg-slate-50 py-16 md:py-32 border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
-                        <span className="text-slate-500 font-bold tracking-widest text-xs uppercase mb-4 block">Legacy Tech Limitations</span>
-                        <h2 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 text-slate-900">Optimization is not transformation</h2>
-                        <p className="text-base md:text-xl text-slate-600">Better catalysts in a PEM stack cannot recover the energy lost to the enthalpy of vaporization.</p>
-                    </div>
+            {/* 1. THE ENERGY CHALLENGE */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 relative">
+                {/* Decorative background blobs */}
+                <div className="absolute top-20 right-0 w-96 h-96 bg-blue-100/50 rounded-full blur-[100px] pointer-events-none"></div>
 
-                    <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
-                        {/* Left: Diagram */}
-                        <div className="relative h-[300px] md:h-[500px] w-full rounded-2xl overflow-hidden shadow-xl bg-white border border-slate-200">
-                            <Image
-                                src="/images/home page/enduring-closed-brayton-combined-power-cycle.webp"
-                                alt="Current Process Limitations"
-                                fill
-                                className="object-contain p-4 md:p-6"
-                            />
-                            {/* TODO: image missing: /images/home page/enduring-closed-brayton-combined-power-cycle.webp */}
-                        </div>
-
-                        {/* Right: Premise Box */}
-                        <div className="bg-slate-100 text-slate-900 p-6 md:p-14 rounded-3xl shadow-2xl relative overflow-hidden group">
-                            {/* Abstract Background */}
-                            <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-blue-500/20 to-purple-500/20 mix-blend-overlay"></div>
-
-                            <div className="relative z-10">
-                                <p className="text-blue-600 text-xs md:text-sm font-bold uppercase tracking-widest mb-4 md:mb-6">HYFUX Advantage</p>
-                                <h3 className="text-2xl md:text-5xl font-bold mb-6 md:mb-8 leading-tight text-slate-900">Don't fight physics. Use it.</h3>
-                                <div className="h-1.5 w-24 bg-gradient-to-r from-blue-500 to-green-500 rounded-full mb-6 md:mb-8"></div>
-                                <p className="text-slate-700 text-base md:text-lg">
-                                    HYFUX Solid Oxide systems use steam, not liquid water. By adding heat, we reduce the electrical work required to split the bond, achieving efficiencies impossible for PEM.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 OUR APPROACH (The Process) */}
-            <AnimatedSection className="bg-white py-16 md:py-32 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="grid lg:grid-cols-2 gap-20 items-start">
                         <div>
-                            <span className="text-blue-600 font-bold tracking-widest text-xs uppercase mb-4 block">The Process Architecture</span>
-                            <h2 className="text-3xl md:text-5xl font-bold mb-6 md:mb-8 text-slate-900">Solid Oxide Physics</h2>
-                            <div className="space-y-6 md:space-y-8 text-base md:text-lg text-slate-600 leading-relaxed">
-                                <p>
-                                    HYFUX deploys High-Temperature Steam Electrolysis (HTSE). We operate at 700°C–850°C, where the thermodynamics of water splitting become favorable.
-                                </p>
-                                <p>
-                                    A significant portion of the energy needed to break the H₂O bond is supplied as heat—often waste industrial heat—drastically cutting the electrical load.
-                                </p>
-                                <div className="border-l-4 border-blue-600 pl-6 py-2">
-                                    <p className="font-semibold text-slate-900 text-lg md:text-xl">
-                                        &gt;90% Efficiency (LHV) on a stack level.
-                                    </p>
-                                </div>
-                                <p className="font-serif italic text-slate-500 text-base md:text-lg">
-                                    "We trade expensive electricity for cheap heat."
+                            <SectionHeader
+                                label="1. The Energy Challenge"
+                                title="Industrial Power Needs Are Changing"
+                                description="Global energy users face a convergence of challenges: rising costs, grid volatility, and decarbonization pressure."
+                            />
+
+                            <ul className="space-y-6 mb-10">
+                                {[
+                                    "Rising electricity costs and grid volatility",
+                                    "Increasing pressure to decarbonize operations",
+                                    "Demand for 24/7 power reliability",
+                                    "Constraints on land, water, and grid capacity"
+                                ].map((item, i) => (
+                                    <li key={i} className="flex items-start gap-5 p-5 bg-white rounded-2xl shadow-sm hover:shadow-md border border-slate-100 transition-all duration-300">
+                                        <div className="bg-red-50 p-3 rounded-xl text-red-500 shadow-inner">
+                                            <Activity className="w-5 h-5" />
+                                        </div>
+                                        <span className="text-lg text-slate-700 font-medium pt-1">{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <div className="relative">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-lg blur opacity-20"></div>
+                                <p className="relative bg-white p-6 rounded-lg text-slate-600 italic border-l-4 border-blue-600">
+                                    Traditional solutions—diesel gensets, grid dependence, or large renewable installations—struggle to meet all four simultaneous requirements.
                                 </p>
                             </div>
                         </div>
 
-                        {/* Process Visuals Grid */}
-                        <div className="grid gap-4 md:gap-6">
-                            <div className="relative h-[250px] md:h-[300px] w-full rounded-2xl overflow-hidden shadow-lg border border-slate-100 bg-white">
-                                <Image
-                                    src="/images/home page/Hydrogen-Diagram.jpg"
-                                    alt="Process Diagram"
-                                    fill
-                                    className="object-contain p-4"
-                                />
-                                {/* TODO: image missing: /images/home page/Hydrogen-Diagram.jpg */}
+                        <div className="space-y-8 mt-8 lg:mt-0">
+                            {/* Image 1: Industrial Demand */}
+                            <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl group border border-slate-100 bg-white">
+                                <div className="relative h-[280px] w-full">
+                                    <Image
+                                        src="/images/home page/Industrial Power Needs Are Changing.jpg"
+                                        alt="Industrial energy demand landscape"
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                                <div className="bg-white p-6 border-t border-slate-50">
+                                    <p className="text-slate-900 font-bold text-lg uppercase tracking-wide">Complex Energy Landscape</p>
+                                </div>
                             </div>
-                            <div className="relative h-[200px] md:h-[250px] w-full rounded-2xl overflow-hidden shadow-lg border border-slate-100 bg-white">
-                                <Image
-                                    src="/images/home page/green-hydrogen-for-industry-decarbonization-process-infographics.jpg"
-                                    alt="Process Infographic"
-                                    fill
-                                    className="object-contain p-4"
-                                />
-                                {/* TODO: image missing: /images/home page/green-hydrogen-for-industry-decarbonization-process-infographics.jpg */}
+
+                            {/* Card 2: Resilience - Replaces Grid Infra Image */}
+                            <div className="relative h-[240px] w-full ml-auto max-w-md rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white bg-gradient-to-br from-slate-900 to-blue-900 p-8 flex flex-col justify-center group -mt-16 z-20 hover:z-30 transition-all hover:-translate-y-2">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                                <div className="relative z-10">
+                                    <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mb-4 border border-white/20">
+                                        <ShieldCheck className="w-6 h-6 text-white" />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-2">Grid Resilience</h3>
+                                    <p className="text-blue-100 text-sm leading-relaxed">Secure your operations against increasing grid instability and outages.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 POSITIONING (Not an Electrolyzer) */}
-            <AnimatedSection className="relative py-16 md:py-32 bg-blue-100 text-slate-900 isolation-auto">
-                {/* Background Image Parallax */}
-                {/* Background Gradient - Cleaner, Premium */}
-                <div className="absolute inset-0 z-0 bg-gradient-to-b from-blue-100 via-sky-100/40 to-blue-100" />
-                <div className="absolute inset-0 z-0 bg-gradient-to-b from-blue-100 via-transparent to-blue-100" />
+            {/* 2. PLATFORM OVERVIEW */}
+            <div className="bg-white text-slate-900 py-12 md:py-20 border-t border-slate-100 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-slate-50 via-white to-white z-0"></div>
 
-                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-                    <div className="mb-10 md:mb-14">
-                        <span className="text-green-600 font-bold tracking-widest text-xs uppercase mb-4 block">Grid Interaction</span>
-                        <h2 className="text-3xl md:text-7xl font-extrabold mb-6 md:mb-8 tracking-tight text-slate-900">Reversible <br />Power & Hydrogen.</h2>
-                        <p className="text-lg md:text-2xl text-slate-600 font-light max-w-3xl mx-auto leading-relaxed">
-                            HYFUX systems are not just consumers. They are reversible assets that can generate power when the grid needs it, and storage when it doesn't.
-                        </p>
-                    </div>
+                <AnimatedSection className="max-w-7xl mx-auto px-6 relative z-10">
+                    <SectionHeader
+                        light={false}
+                        label="2. Platform Overview"
+                        title="High-Efficiency Electrochemical Power"
+                        description="HYFU systems generate electricity through electrochemical reactions, not combustion. This allows for superior efficiency and ultra-low emissions."
+                    />
 
-                    <div className="grid md:grid-cols-3 gap-4 md:gap-8 text-left">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
                         {[
-                            { title: "Grid Balancing", desc: "Absorb excess renewable peaks, dispatch power during deficits.", icon: Zap },
-                            { title: "Fuel Flexible", desc: "Operate on Hydrogen, Ammonia, or Natural Gas blends.", icon: Layers },
-                            { title: "High Quality Heat", desc: "Generate high-grade steam for industrial processes alongside H₂.", icon: Factory },
-                        ].map((item, i) => (
-                            <div key={i} className="bg-white border border-slate-200 p-6 md:p-8 rounded-2xl hover:shadow-lg transition-all duration-300 group">
-                                <item.icon className="w-10 h-10 md:w-12 md:h-12 text-blue-600 mb-4 md:mb-6 group-hover:scale-110 transition-transform" />
-                                <h3 className="text-lg md:text-xl font-bold mb-2 text-slate-900">{item.title}</h3>
-                                <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+                            { label: "Electrical Efficiency", val: "~60%", sub: "AC, LHV (Estimated)", icon: Zap },
+                            { label: "CHP Efficiency", val: ">85%", sub: "Combined Heat & Power", icon: Factory },
+                            { label: "Availability", val: "Continuous", sub: "Steady Output", icon: Activity },
+                            { label: "Reliability", val: "High", sub: "Minimal Moving Parts", icon: ShieldCheck },
+                        ].map((stat, i) => (
+                            <div key={i} className="group bg-white border border-slate-100 p-8 rounded-3xl shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500">
+                                <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-500">
+                                    <stat.icon className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-500" />
+                                </div>
+                                <div className="text-4xl font-extrabold text-slate-900 mb-2">{stat.val}</div>
+                                <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-1">{stat.label}</div>
+                                <div className="text-xs text-slate-400">{stat.sub}</div>
                             </div>
                         ))}
                     </div>
 
-                    {/* Built to Enable Industry Banner */}
-                    <div className="mt-12 md:mt-20 relative h-[180px] md:h-[250px] w-full rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
-                        <Image
-                            src="/images/home page/BUILT TO ENABLE INDUSTRY.png"
-                            alt="Built To Enable Industry"
-                            fill
-                            className="object-cover blur-[3px] scale-105 group-hover:blur-none group-hover:scale-110 transition-all duration-700"
-                        />
-                        {/* TODO: image missing: /images/home page/BUILT TO ENABLE INDUSTRY.png */}
-                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-all duration-700 flex items-center justify-center">
-                            <h3 className="text-2xl md:text-4xl font-bold text-white tracking-widest uppercase text-center drop-shadow-2xl">Energy Security <br />& Independence</h3>
-                        </div>
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 PROVEN PERFORMANCE TABLE + INDIA STRATEGY */}
-            <div className="bg-gradient-to-br from-sky-100 to-blue-100 py-16 md:py-32 border-y border-blue-300/50">
-                <AnimatedSection className="max-w-7xl mx-auto px-6 mb-16 md:mb-24">
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                        {/* Table Area */}
-                        <div>
-                            <span className="text-green-600 font-bold tracking-widest text-xs uppercase mb-4 block">Proven Performance</span>
-                            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 md:mb-6">Pilot-validated results</h2>
-                            <p className="text-base md:text-lg text-slate-600 mb-6 md:mb-8">
-                                Demonstrating a sub-$2/kg production trajectory under realistic power conditions.
-                            </p>
-
-                            {/* Mobile Data Cards (< md) */}
-                            <div className="md:hidden space-y-4 mb-6">
-                                {/* Item 1: Electricity */}
-                                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                                    <h4 className="font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2">Electricity</h4>
-                                    <div className="grid grid-cols-2 gap-4 text-sm">
-                                        <div>
-                                            <div className="text-slate-500 text-xs uppercase tracking-wider mb-1">Conventional</div>
-                                            <div className="text-slate-600 font-medium">50–55 kWh/kg</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-green-600 text-xs uppercase tracking-wider font-bold mb-1">HELIONYX</div>
-                                            <div className="text-green-700 font-bold bg-green-50 inline-block px-2 py-0.5 rounded">30–35 kWh/kg</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Item 2: Cost */}
-                                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                                    <h4 className="font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2">Cost (LCOH)</h4>
-                                    <div className="grid grid-cols-2 gap-4 text-sm">
-                                        <div>
-                                            <div className="text-slate-500 text-xs uppercase tracking-wider mb-1">Conventional</div>
-                                            <div className="text-slate-600 font-medium">$3.5–4.5/kg</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-green-600 text-xs uppercase tracking-wider font-bold mb-1">HELIONYX</div>
-                                            <div className="text-green-700 font-bold bg-green-50 inline-block px-2 py-0.5 rounded">&lt; $2/kg</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Item 3: Materials */}
-                                <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-                                    <h4 className="font-bold text-slate-900 mb-3 border-b border-slate-100 pb-2">Materials</h4>
-                                    <div className="grid grid-cols-2 gap-4 text-sm">
-                                        <div>
-                                            <div className="text-slate-500 text-xs uppercase tracking-wider mb-1">Conventional</div>
-                                            <div className="text-slate-600 font-medium">PGMs Required</div>
-                                        </div>
-                                        <div>
-                                            <div className="text-green-600 text-xs uppercase tracking-wider font-bold mb-1">HELIONYX</div>
-                                            <div className="text-green-700 font-bold bg-green-50 inline-block px-2 py-0.5 rounded">None</div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="md:col-span-2 relative w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group bg-white flex flex-col">
+                            <div className="relative h-[300px] w-full bg-slate-50 border-b border-slate-50">
+                                <Image
+                                    src="/images/home page/SOFC Working Principle.jpg"
+                                    alt="SOFC Working Principle"
+                                    fill
+                                    className="object-contain p-4"
+                                />
                             </div>
-
-                            {/* Desktop Table (>= md) */}
-                            <div className="hidden md:block w-full rounded-xl overflow-hidden shadow-lg border border-slate-200 mb-6 bg-white">
-                                <table className="w-full text-left text-sm min-w-[500px]">
-                                    <thead className="bg-slate-800 text-slate-200">
-                                        <tr>
-                                            <th className="p-4 font-semibold">Metric</th>
-                                            <th className="p-4 font-semibold opacity-70">PEM / Alkaline</th>
-                                            <th className="p-4 font-bold text-green-400">HYFUX SOFC</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-100">
-                                        <tr>
-                                            <td className="p-4 font-medium text-slate-900">Electrical Demand</td>
-                                            <td className="p-4 text-slate-500">50–55 kWh/kg</td>
-                                            <td className="p-4 font-bold text-green-700 bg-green-50">&lt; 35 kWh/kg</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-4 font-medium text-slate-900">System Efficiency</td>
-                                            <td className="p-4 text-slate-500">60–70% (LHV)</td>
-                                            <td className="p-4 font-bold text-green-700 bg-green-50">&gt; 90% (LHV)</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-4 font-medium text-slate-900">Materials</td>
-                                            <td className="p-4 text-slate-500">Platinum / Iridium (Low Supply)</td>
-                                            <td className="p-4 font-bold text-green-700 bg-green-50">Ceramics / Nickel (Abundant)</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div className="p-8">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-2">Electrochemical Generation</h3>
+                                <p className="text-slate-600 max-w-lg">Direct conversion from fuel to electron, bypassing the combustion cycle entirely.</p>
                             </div>
-                            <p className="text-xs text-slate-400 italic">Comparison based on standard industrial electrolysis vs. HYFUX heat-integrated SOFC.</p>
                         </div>
-
-                        {/* India Strategy Visual */}
-                        <div className="relative h-[400px] md:h-[500px] w-full rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-200 group">
-                            <Image
-                                src="/images/home page/India-Focused Clean Energy Visual.png"
-                                alt="India First Strategy"
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                            />
-                            {/* TODO: image missing: /images/home page/India-Focused Clean Energy Visual.png */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent p-6 md:p-10 flex flex-col justify-end">
-                                <span className="text-orange-400 font-bold uppercase tracking-widest text-xs mb-2">India-First Deployment</span>
-                                <h3 className="text-white text-2xl md:text-3xl font-bold mb-4">Aligned with National Ambitions</h3>
-                                <p className="text-slate-200 text-xs md:text-sm leading-relaxed max-w-sm">
-                                    Enabling scalable green hydrogen without crippling renewable overbuild requirements.
-                                </p>
+                        <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-100 group bg-white flex flex-col">
+                            <div className="relative h-[300px] w-full bg-slate-50 border-b border-slate-50">
+                                <Image
+                                    src="/images/home page/SOFC Stack Architecture.png"
+                                    alt="SOFC Stack Architecture"
+                                    fill
+                                    className="object-contain p-4"
+                                />
+                            </div>
+                            <div className="p-8 mt-auto">
+                                <h3 className="text-xl font-bold text-slate-900">Advanced Stack Design</h3>
                             </div>
                         </div>
                     </div>
                 </AnimatedSection>
             </div>
 
-            {/* 🔹 INDUSTRIAL APPLICATIONS (Bento Grid Gallery) */}
-            <AnimatedSection className="bg-white py-16 md:py-32">
+            {/* 3. COMPARISON */}
+            <AnimatedSection className="py-12 md:py-20 bg-blue-50/30 relative">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-10 md:mb-16">
-                        <span className="text-blue-600 font-bold tracking-widest text-xs uppercase mb-3 block">Industrial Applications</span>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 md:mb-6">Where economics matter most</h2>
-                        <p className="text-base md:text-xl text-slate-600 max-w-2xl mx-auto">
-                            Designed for sectors where hydrogen cost, reliability, and availability directly determine feasibility.
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
-
-                        {/* 1. STEEL (Large) */}
-                        <div className="md:col-span-2 relative group overflow-hidden rounded-2xl cursor-default">
-                            <Image src="/images/home page/Steel, Construction & Infrastructure.png" alt="Steel" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                            {/* TODO: image missing: /images/home page/Steel, Construction & Infrastructure.png */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white text-2xl font-bold mb-2">Green Steel & DRI</h3>
-                                <p className="text-slate-200 text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
-                                    Providing low-cost Syngas and Hydrogen for Direct Reduced Iron (DRI) processes.
-                                </p>
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <div className="order-2 lg:order-1">
+                            {/* Visual Comparison */}
+                            <div className="relative h-[550px] w-full rounded-[2rem] overflow-hidden shadow-2xl border border-white bg-white">
+                                <div className="absolute inset-0 bg-slate-50/50"></div>
+                                <Image
+                                    src="/images/home page/Fuel Cell vs Conventional.jpg"
+                                    alt="Fuel Cell vs Conventional"
+                                    fill
+                                    className="object-contain p-10 relative z-10"
+                                />
                             </div>
                         </div>
+                        <div className="order-1 lg:order-2">
+                            <SectionHeader
+                                label="3. Operational Advantage"
+                                title="Why SOFCs Outperform"
+                                description="Compared to internal combustion engines or gas turbines, SOFCs operate at high temperatures, enabling direct conversion of fuel to electricity."
+                            />
 
-                        {/* 2. Mobility (Tall/Standard) */}
-                        <div className="relative group overflow-hidden rounded-2xl cursor-default">
-                            <Image src="/images/home page/Clean Fuels & Energy Distribution.png" alt="Mobility" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                            {/* TODO: image missing: /images/home page/Clean Fuels & Energy Distribution.png */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white text-xl font-bold mb-1">e-Fuels</h3>
-                                <p className="text-slate-200 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Feedstock for synthetic aviation and marine fuels.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 3. Agriculture (Large - with stacked images if needed, mostly just fertilizer here) */}
-                        <div className="md:col-span-1 relative group overflow-hidden rounded-2xl cursor-default">
-                            <Image src="/images/home page/Fertilizers & Food Production.png" alt="Fertilizers" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                            {/* TODO: image missing: /images/home page/Fertilizers & Food Production.png */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white text-xl font-bold mb-1">Ammonia</h3>
-                                <p className="text-slate-200 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Decarbonizing fertilizer production with scalable H₂.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 4. Tractor (Standard) */}
-                        <div className="relative group overflow-hidden rounded-2xl cursor-default">
-                            <Image src="/images/home page/tractor-spreading-fertilizer.jpg" alt="Ag" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                            {/* TODO: image missing: /images/home page/tractor-spreading-fertilizer.jpg */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white text-xl font-bold mb-1">Agri-Power</h3>
-                                <p className="text-slate-200 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Sustainable power for heavy farm machinery.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 5. Soybeans (Standard) */}
-                        <div className="relative group overflow-hidden rounded-2xl cursor-default">
-                            <Image src="/images/home page/Bloomberg_20soybeans_20into_20grain_20truck.jpeg" alt="Grains" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                            {/* TODO: image missing: /images/home page/Bloomberg_20soybeans_20into_20grain_20truck.jpeg */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white text-xl font-bold mb-1">Logistics</h3>
-                                <p className="text-slate-200 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Clean supply chains for global food security.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 6. Chemicals (Wide) */}
-                        <div className="md:col-span-2 relative group overflow-hidden rounded-2xl cursor-default">
-                            <Image src="/images/home page/Chemicals & Everyday Materials.png" alt="Chemicals" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                            {/* TODO: image missing: /images/home page/Chemicals & Everyday Materials.png */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white text-2xl font-bold mb-1">Petrochemicals</h3>
-                                <p className="text-slate-200 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Refining and upgrading hydrocarbons with low-carbon hydrogen.
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* 7. Extra Chemical Image */}
-                        <div className="relative group overflow-hidden rounded-2xl cursor-default">
-                            <Image src="/images/home page/Picture1.jpg" alt="Materials" fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                            {/* TODO: image missing: /images/home page/Picture1.jpg */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent p-8 flex flex-col justify-end">
-                                <h3 className="text-white text-xl font-bold mb-1">Materials</h3>
-                                <p className="text-slate-200 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Next-gen polymers and plastics.
-                                </p>
+                            <div className="space-y-4">
+                                {[
+                                    { title: "Direct Conversion", desc: "No mechanical energy loss." },
+                                    { title: "Internal Reforming", desc: "Fuel flexibility within the stack." },
+                                    { title: "Stable Efficiency", desc: "Consistent performance across load ranges." },
+                                    { title: "Lower Maintenance", desc: "No pistons, no gears, no oil changes." }
+                                ].map((feature, i) => (
+                                    <div key={i} className="flex gap-5 items-start p-4 hover:bg-white rounded-xl transition-colors duration-300">
+                                        <div className="bg-green-100 p-2 rounded-full mt-1 flex-shrink-0">
+                                            <CheckCircle2 className="w-5 h-5 text-green-600" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-slate-900 text-lg mb-1">{feature.title}</h4>
+                                            <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 FINAL CTA BANNER */}
-            <div className="relative w-full h-[60vh] flex items-center justify-center overflow-hidden">
-                <Image
-                    src="/images/home page/ACCELERATING THE ECONOMICS OF GREEN HYDROGEN (FINAL CTA).png"
-                    alt="Accelerating Economics"
-                    fill
-                    className="object-cover"
-                />
-                {/* TODO: image missing: /images/home page/ACCELERATING THE ECONOMICS OF GREEN HYDROGEN (FINAL CTA).png */}
-                <div className="absolute inset-0 bg-black/20 md:bg-black/5" /> {/* Subtle tint */}
+            {/* 4. MODULAR ARCHITECTURE */}
+            <AnimatedSection className="py-12 md:py-20 bg-white border-y border-slate-50">
+                <div className="max-w-7xl mx-auto px-6 text-center mb-16">
+                    <SectionHeader
+                        label="4. Scalability"
+                        title="Modular Architecture Designed for Scale"
+                        description="From Hundreds of Kilowatts to Multi-Megawatts. Standardized power modules allow for rapid deployment and incremental expansion."
+                    />
+                </div>
 
-                <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-                    <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 md:p-16 rounded-2xl md:rounded-3xl shadow-2xl">
-                        <h2 className="text-2xl md:text-5xl font-bold text-white mb-6 md:mb-8 drop-shadow-md">Ready to Scale?</h2>
-                        <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
-                            <Link href="/partnership" className="px-6 py-3 md:px-10 md:py-5 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition-all shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-1 text-sm md:text-base">
-                                Partner With Us
-                            </Link>
-                            <Link href="/contact" className="px-6 py-3 md:px-10 md:py-5 bg-white text-slate-900 font-bold rounded-lg hover:bg-slate-50 transition-all shadow-lg hover:shadow-white/30 transform hover:-translate-y-1 text-sm md:text-base">
-                                Request Brief
-                            </Link>
+                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
+                    {[
+                        { title: "Rapid Deployment", desc: "Factory-assembled units reduce on-site construction time.", icon: Layers },
+                        { title: "Incremental Growth", desc: "Start with 1MW, expand to 4MW as demand grows.", icon: BarChart3 },
+                        { title: "Factory Tested", desc: "Pre-validated reliability before shipping.", icon: ShieldCheck }
+                    ].map((item, i) => (
+                        <div key={i} className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 hover:-translate-y-2 flex flex-col h-full bg-gradient-to-br from-white to-slate-50/50">
+                            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-500 shadow-inner">
+                                <item.icon className="w-8 h-8 text-blue-600 group-hover:text-white transition-colors duration-500" />
+                            </div>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors">{item.title}</h3>
+                            <p className="text-slate-600 leading-relaxed text-lg">{item.desc}</p>
                         </div>
+                    ))}
+                </div>
+            </AnimatedSection>
+
+            {/* 5. FUEL FLEXIBILITY - BENTO GRID STYLE */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50/80 relative">
+                {/* Background decorative elements */}
+                <div className="absolute top-1/3 left-0 w-full h-[500px] bg-gradient-to-r from-blue-50/50 to-transparent skew-y-6 pointer-events-none"></div>
+
+                <div className="max-w-7xl mx-auto px-6 relative z-10">
+                    <div className="grid lg:grid-cols-3 gap-12">
+                        <div className="lg:col-span-1">
+                            <SectionHeader
+                                label="5. Future Proof"
+                                title="Hydrogen-Ready by Design"
+                                description="Operate on today's fuels and transition seamlessly to tomorrows Hydrogen logic without stranded assets."
+                            />
+                            <div className="bg-white p-8 rounded-2xl border-l-4 border-green-500 shadow-lg">
+                                <h4 className="font-bold text-slate-900 mb-3 text-lg">Business Value</h4>
+                                <p className="text-slate-600 text-base leading-relaxed">Immediate deployment using existing gas infrastructure, with a clear pathway to Net-Zero.</p>
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
+                            <div className="group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-[240px]">
+                                <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center group-hover:bg-slate-900 transition-colors duration-300">
+                                    <Factory className="w-6 h-6 text-slate-500 group-hover:text-white" />
+                                </div>
+                                <div>
+                                    <h4 className="text-2xl font-bold text-slate-900 mb-1">Natural Gas</h4>
+                                    <p className="text-slate-500 font-medium">Current Infrastructure</p>
+                                </div>
+                            </div>
+                            <div className="group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-[240px]">
+                                <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center group-hover:bg-green-500 transition-colors duration-300">
+                                    <Leaf className="w-6 h-6 text-green-600 group-hover:text-white" />
+                                </div>
+                                <div>
+                                    <h4 className="text-2xl font-bold text-slate-900 mb-1">Biogas / RNG</h4>
+                                    <p className="text-slate-500 font-medium">Renewable Carbon Neutral</p>
+                                </div>
+                            </div>
+                            <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-8 rounded-3xl shadow-xl flex flex-col justify-between h-[240px] text-white sm:col-span-2 relative overflow-hidden group">
+                                <div className="absolute right-0 top-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-white/20 transition-all duration-700"></div>
+                                <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center">
+                                    <Zap className="w-6 h-6 text-white" />
+                                </div>
+                                <div className="relative z-10">
+                                    <h4 className="text-3xl font-bold text-white mb-2">Hydrogen</h4>
+                                    <p className="text-blue-100 font-medium text-lg">Future Pure H₂ Operation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 6 & 7. RELIABILITY & ENVIRONMENT */}
+            <div className="bg-white text-slate-900 py-12 md:py-20 border-t border-slate-100">
+                <AnimatedSection className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-24">
+                    <div>
+                        <span className="text-blue-600 font-bold text-xs uppercase tracking-widest mb-6 block">6. Reliability</span>
+                        <h2 className="text-4xl font-extrabold mb-8 text-slate-900 leading-tight">Designed for 24/7 <br /> Industrial Duty</h2>
+                        <ul className="space-y-8 mt-10">
+                            {[
+                                { val: ">95%", label: "Availability", desc: "Steady-state operation." },
+                                { val: "40k+", label: "Operating Hours", desc: "MTBF (Estimated)." },
+                                { val: "Annual", label: "Maintenance", desc: "Planned intervals." }
+                            ].map((stat, i) => (
+                                <li key={i} className="flex items-center gap-8 group">
+                                    <span className="text-5xl font-extrabold text-slate-900 w-28 tracking-tighter group-hover:text-blue-600 transition-colors">{stat.val}</span>
+                                    <div className="border-l-2 border-slate-100 pl-6 group-hover:border-blue-200 transition-colors">
+                                        <h4 className="text-blue-600 font-bold uppercase text-xs tracking-widest mb-1">{stat.label}</h4>
+                                        <p className="text-slate-500 font-medium">{stat.desc}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div>
+                        <span className="text-green-600 font-bold text-xs uppercase tracking-widest mb-6 block">7. Environment</span>
+                        <h2 className="text-4xl font-extrabold mb-8 text-slate-900 leading-tight">Clean Power Without Compromise</h2>
+                        <div className="relative h-[350px] w-full rounded-[2rem] overflow-hidden mb-8 border border-slate-100 shadow-2xl group">
+                            <Image
+                                src="/images/home page/Clean Energy Landscape.jpg"
+                                alt="Clean Energy Landscape"
+                                fill
+                                className="object-contain transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        </div>
+                        <p className="text-slate-600 text-lg leading-relaxed">
+                            Near-zero NOx and SOx. No combustion particulates. HYFU provides an immediate pathway to decarbonization.
+                        </p>
+                    </div>
+                </AnimatedSection>
+            </div>
+
+            {/* 8. TARGET CUSTOMERS */}
+            <AnimatedSection className="py-12 md:py-20 bg-blue-50/20">
+                <div className="max-w-7xl mx-auto px-6">
+                    <SectionHeader
+                        label="8. Use Cases"
+                        title="Built for Mission-Critical Applications"
+                        description="HYFU serves industries where downtime is not an option."
+                    />
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: "Data Centers", icon: Cpu, desc: "Ultra-reliable power for uptime-critical infrastructure." },
+                            { title: "Manufacturing", icon: Factory, desc: "Efficient baseload for energy-intensive processes." },
+                            { title: "Logistics", icon: Truck, desc: "Future-proof power for EV fleets and warehousing." },
+                            { title: "Healthcare", icon: Stethoscope, desc: "Resilient microgrid solutions for life-safety systems." }
+                        ].map((useCase, i) => (
+                            <div key={i} className="group bg-white rounded-3xl p-8 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.15)] transition-all duration-300 border border-slate-100 h-[260px] flex flex-col justify-between hover:bg-slate-50 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-100 rounded-bl-[100px] opacity-50 group-hover:bg-blue-50 transition-colors duration-500 -mr-10 -mt-10"></div>
+                                <div className="relative z-10 w-14 h-14 bg-white border border-slate-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <useCase.icon className="w-7 h-7 text-slate-700 group-hover:text-blue-600 transition-colors" />
+                                </div>
+                                <div className="relative z-10">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">{useCase.title}</h3>
+                                    <p className="text-slate-500 text-sm leading-relaxed">{useCase.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 9. COMMERCIAL MODEL */}
+            <AnimatedSection className="py-12 md:py-20 bg-white border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <div>
+                            <SectionHeader
+                                label="9. Deployment"
+                                title="Engineered for Real-World Adoption"
+                            />
+                            <div className="space-y-8">
+                                <div className="flex gap-6 group">
+                                    <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center font-bold text-xl flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">1</div>
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 text-xl mb-1">Site Assessment & Engineering</h4>
+                                        <p className="text-slate-600">Detailed planning for integration.</p>
+                                    </div>
+                                </div>
+                                <div className="w-0.5 h-12 bg-slate-100 ml-6"></div>
+                                <div className="flex gap-6 group">
+                                    <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center font-bold text-xl flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">2</div>
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 text-xl mb-1">Factory Assembly & Testing</h4>
+                                        <p className="text-slate-600">Modular build for quality assurance.</p>
+                                    </div>
+                                </div>
+                                <div className="w-0.5 h-12 bg-slate-100 ml-6"></div>
+                                <div className="flex gap-6 group">
+                                    <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center font-bold text-xl flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm">3</div>
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 text-xl mb-1">Installation & Commissioning</h4>
+                                        <p className="text-slate-600">Rapid on-site deployment.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative h-[450px] w-full rounded-[2rem] overflow-hidden shadow-2xl border-[8px] border-slate-50">
+                            <Image
+                                src="/images/home page/ngineering Planning.png"
+                                alt="Engineering Planning"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 10. VISION & CTA */}
+            <div className="relative py-24 bg-slate-50 overflow-hidden text-center border-t border-slate-200">
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-0 left-0 w-full h-full bg-white opacity-80"></div>
+                    {/* Abstract background shapes */}
+                    <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-100/50 rounded-full blur-[120px]"></div>
+                    <div className="absolute top-40 right-40 w-[400px] h-[400px] bg-cyan-100/50 rounded-full blur-[100px]"></div>
+                </div>
+
+                <div className="relative z-10 max-w-5xl mx-auto px-6">
+                    <span className="inline-block py-2 px-6 rounded-full bg-white border border-slate-200 text-blue-600 font-bold text-xs uppercase tracking-widest mb-8 shadow-sm">10. Our Vision</span>
+                    <h2 className="text-5xl md:text-7xl font-extrabold text-slate-900 mb-10 leading-[1.1] tracking-tight">
+                        Building the Backbone of <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Clean Industrial Power.</span>
+                    </h2>
+
+                    <div className="grid md:grid-cols-2 gap-8 my-16 text-left max-w-3xl mx-auto">
+                        <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 hover:-translate-y-1 transition-transform duration-300">
+                            <h4 className="text-slate-900 font-bold mb-3 text-xl">Technical Goals</h4>
+                            <p className="text-slate-600">Higher-density stacks, Hydrogen-optimized systems, and AI-driven performance optimization.</p>
+                        </div>
+                        <div className="bg-white p-8 rounded-3xl shadow-xl border border-slate-100 hover:-translate-y-1 transition-transform duration-300">
+                            <h4 className="text-slate-900 font-bold mb-3 text-xl">Commercial Goals</h4>
+                            <p className="text-slate-600">Cost reduction through operational scale, Global manufacturing footprint.</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row justify-center gap-6">
+                        <Link href="/contact" className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-xl hover:shadow-blue-600/30 text-lg hover:-translate-y-1">
+                            Partner with HYFU
+                        </Link>
+                        <Link href="/contact" className="px-10 py-5 bg-white border border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-50 transition-all shadow-md hover:shadow-xl text-lg hover:-translate-y-1">
+                            Request Technical Briefing
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
+            {/* FAQ SECTION */}
+            <div className="bg-white py-12 md:py-20 relative">
+                <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-4xl font-extrabold text-slate-900 mb-16 text-center">Frequently Asked Questions</h2>
+                    <div className="space-y-4">
+                        {[
+                            { q: "Is HYFU technology commercially ready?", a: "Yes. HYFU focuses on deployable SOFC platforms engineered for industrial uptime and long operating life." },
+                            { q: "Can HYFU systems run on hydrogen today?", a: "They are hydrogen-ready and can operate on blended fuels, with full hydrogen capability as supply matures." },
+                            { q: "How does SOFC efficiency compare to gas engines?", a: "SOFC systems deliver significantly higher electrical efficiency, especially at small-to-mid scale." },
+                            { q: "What industries benefit most?", a: "Industries requiring continuous, reliable power with emissions constraints—data centers, healthcare, manufacturing." },
+                            { q: "Does HYFU replace renewables?", a: "No. HYFU complements renewables by providing clean baseload power." }
+                        ].map((faq, i) => (
+                            <FAQItem
+                                key={i}
+                                question={faq.q}
+                                answer={faq.a}
+                                isOpen={openFAQ === i}
+                                onClick={() => toggleFAQ(i)}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>

@@ -9,10 +9,11 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
+    { name: "Home", href: "/" },
     { name: "Technology", href: "/technology" },
-    { name: "Market Opportunity", href: "/market" },
-    { name: "Partnership", href: "/partnership" },
-    { name: "Sustainability", href: "/sustainability" },
+    { name: "Applications", href: "/applications" },
+    { name: "Markets & Scale", href: "/market" },
+    { name: "Partnerships", href: "/partnerships" },
     { name: "About Us", href: "/about" },
 ];
 
@@ -20,6 +21,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
+    const isLightHero = pathname === "/" || pathname === "/market" || pathname === "/partnerships"; // Home, Market, and Partnerships pages have light hero images
 
     // Handle scroll effect
     useEffect(() => {
@@ -47,76 +49,66 @@ export default function Navbar() {
     return (
         <header
             className={cn(
-                "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-in-out",
+                "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ease-in-out border-b",
                 isOpen
-                    ? "bg-transparent py-2 lg:py-3"
+                    ? "bg-white/100 border-slate-100 py-0"
                     : scrolled
-                        ? "bg-white/90 backdrop-blur-md border-b border-helionyx-border py-2 lg:py-3 shadow-sm"
-                        : "bg-transparent py-4 lg:py-6"
+                        ? "bg-white/90 backdrop-blur-md border-slate-200/50 py-0 shadow-[0_4px_30px_rgba(0,0,0,0.03)]"
+                        : "bg-transparent border-transparent py-4"
             )}
         >
-            <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-                {/* Logo - Image that adapts to scroll state */}
-                <Link href="/" className={cn(
-                    "z-50 transition-all h-10 lg:h-14 flex items-center gap-2",
-                    scrolled || isOpen ? "opacity-100" : "opacity-100"
-                )}>
-                    <Image
-                        src="/images/logo.jpeg"
-                        alt="HYFUX Logo"
-                        width={160}
-                        height={50}
-                        priority
-                        className="h-8 lg:h-12 w-auto object-contain"
-                    />
-                    <div className={cn(
-                        "flex flex-col justify-center h-full border-l pl-3 ml-1 py-0.5",
-                        scrolled || isOpen ? "border-slate-300" : "border-white/30"
-                    )}>
+            <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between gap-8 h-20 md:h-24">
+                {/* Logo Area */}
+                <Link href="/" className="relative z-50 flex items-center gap-4 group">
+                    <div className="flex flex-col">
                         <span className={cn(
-                            "font-bold tracking-[0.1em] text-[0.45rem] lg:text-[0.55rem] leading-none mb-[1px]",
-                            scrolled || isOpen ? "text-slate-500" : "text-slate-400"
+                            "font-black text-2xl md:text-3xl tracking-tighter leading-none transition-colors duration-500",
+                            isOpen || scrolled || isLightHero ? "text-slate-900" : "text-white"
                         )}>
                             HYFUX
                         </span>
+                        <div className="h-0.5 w-full bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    </div>
+                    <div className={cn(
+                        "hidden md:flex flex-col justify-center h-8 border-l pl-4 transition-colors duration-500",
+                        isOpen || scrolled || isLightHero ? "border-slate-300" : "border-white/30"
+                    )}>
                         <span className={cn(
-                            "font-bold tracking-[0.15em] text-[0.55rem] lg:text-[0.65rem] uppercase leading-none mb-[1px]",
-                            scrolled || isOpen ? "text-slate-600" : "text-slate-300"
+                            "font-bold tracking-[0.2em] text-[0.6rem] uppercase leading-tight transition-colors duration-500",
+                            isOpen || scrolled || isLightHero ? "text-slate-500" : "text-white/70"
                         )}>
                             Hydrogen
                         </span>
                         <span className={cn(
-                            "font-bold tracking-[0.15em] text-[0.55rem] lg:text-[0.65rem] uppercase leading-none mb-[1px]",
-                            scrolled || isOpen ? "text-slate-600" : "text-slate-300"
+                            "font-bold tracking-[0.2em] text-[0.6rem] uppercase leading-tight transition-colors duration-500",
+                            isOpen || scrolled || isLightHero ? "text-slate-900" : "text-white"
                         )}>
-                            Energy
-                        </span>
-                        <span className={cn(
-                            "font-bold tracking-[0.15em] text-[0.55rem] lg:text-[0.65rem] uppercase leading-none",
-                            scrolled || isOpen ? "text-blue-600" : "text-blue-400"
-                        )}>
-                            Systems
+                            Energy Systems
                         </span>
                     </div>
                 </Link>
 
                 {/* Desktop Nav */}
-                <nav className="hidden lg:flex items-center gap-8">
+                <nav className="hidden lg:flex items-center gap-5 xl:gap-8">
                     {NAV_ITEMS.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
                             className={cn(
-                                "text-base font-medium transition-colors tracking-wide",
-                                scrolled ? "text-slate-600 hover:text-helionyx-accent" : "text-gray-300 hover:text-white"
+                                "text-xs font-bold uppercase tracking-widest transition-all duration-300 relative group whitespace-nowrap",
+                                isOpen || scrolled || isLightHero ? "text-slate-600 hover:text-blue-600" : "text-white/90 hover:text-white"
                             )}
                         >
                             {item.name}
+                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
                     ))}
                     <Link
                         href="/contact"
-                        className="ml-6 px-5 py-2.5 bg-helionyx-accent hover:bg-sky-600 text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-all shadow-md hover:shadow-lg"
+                        className={cn(
+                            "hidden lg:flex px-8 py-3 text-xs font-bold uppercase tracking-widest rounded-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5",
+                            isOpen || scrolled || isLightHero ? "bg-slate-900 text-white hover:bg-blue-600" : "bg-white text-slate-900 hover:bg-white/90"
+                        )}
                     >
                         Contact Us
                     </Link>
@@ -125,8 +117,9 @@ export default function Navbar() {
                 {/* Mobile Toggle */}
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className={cn("lg:hidden z-50 p-2 transition-colors",
-                        isOpen ? "text-slate-900" : (scrolled ? "text-slate-900" : "text-white")
+                    className={cn(
+                        "lg:hidden z-50 p-2 transition-colors rounded-lg",
+                        isOpen || scrolled || isLightHero ? "text-slate-900 hover:bg-slate-100" : "text-white hover:bg-white/10"
                     )}
                     aria-label="Toggle Menu"
                 >
@@ -185,6 +178,6 @@ export default function Navbar() {
                     )}
                 </AnimatePresence>
             </AnimatePresence>
-        </header>
+        </header >
     );
 }

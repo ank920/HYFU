@@ -3,173 +3,287 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/ui/AnimatedSection";
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Globe2, TrendingUp, Zap, Anchor, BarChart3, Factory } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import {
+    Activity, ArrowRight, BarChart3, Building2, CheckCircle2,
+    ChevronDown, Cpu, Factory, Globe, HeartPulse, Layers,
+    Leaf, ShieldCheck, Zap, TrendingUp, Coins, LayoutGrid, Lock, Scale
+} from "lucide-react";
 
-import { motion } from "framer-motion";
+// --- Components ---
+
+const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) => {
+    return (
+        <div className="border-b border-slate-200 last:border-0">
+            <button
+                className="w-full py-6 flex justify-between items-center text-left focus:outline-none group"
+                onClick={onClick}
+            >
+                <span className={`text-lg md:text-xl font-bold transition-colors duration-300 ${isOpen ? "text-blue-600" : "text-slate-900 group-hover:text-blue-600"}`}>
+                    {question}
+                </span>
+                <span className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                    <ChevronDown className={`w-6 h-6 ${isOpen ? "text-blue-600" : "text-slate-400"}`} />
+                </span>
+            </button>
+            <div className={`grid transition-all duration-300 ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}>
+                <div className="overflow-hidden">
+                    <p className="text-slate-600 leading-relaxed text-base md:text-lg">
+                        {answer}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const SectionHeader = ({ label, title, description, light = false, className = "" }: { label: string, title: string, description?: string, light?: boolean, className?: string }) => (
+    <div className={`mb-10 max-w-3xl ${className}`}>
+        <span className={`font-bold tracking-widest text-xs uppercase mb-4 block ${light ? "text-blue-400" : "text-blue-600"}`}>
+            {label}
+        </span>
+        <h2 className={`text-3xl md:text-5xl font-extrabold mb-6 leading-tight ${light ? "text-white" : "text-slate-900"}`}>
+            {title}
+        </h2>
+        {description && (
+            <p className={`text-lg md:text-xl leading-relaxed ${light ? "text-slate-300" : "text-slate-600"}`}>
+                {description}
+            </p>
+        )}
+    </div>
+);
 
 export default function MarketPage() {
+    const [openFAQ, setOpenFAQ] = useState<number | null>(0);
+
+    const toggleFAQ = (index: number) => {
+        setOpenFAQ(openFAQ === index ? null : index);
+    };
+
     return (
-        <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100">
+        <main className="bg-white min-h-screen text-slate-900 selection:bg-blue-100 font-sans w-full overflow-x-hidden">
             <Navbar />
 
-            {/* 🔹 HERO SECTION (IMAGE + DARK OVERLAY) */}
-            <div className="relative h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-800">
-                {/* Background Video */}
+            {/* HERO SECTION */}
+            <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-900">
                 <div className="absolute inset-0 z-0">
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="absolute inset-0 w-full h-full object-cover opacity-80 blur-[2px]"
-                    >
-                        <source src="/video/market.mp4" type="video/mp4" />
-                    </video>
-                    {/* Dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80" />
-                    {/* Grainy Noise Overlay for Texture */}
-                    <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+                    <Image
+                        src="/images/market/hero.jpg"
+                        alt="Global Scale Market"
+                        fill
+                        className="object-cover blur-[3px]"
+                        priority
+                    />
                 </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white mt-16">
-                    <motion.span
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-blue-400 font-bold tracking-widest text-xs uppercase mb-6 block"
-                    >
-                        Market Opportunity
-                    </motion.span>
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 md:mb-8 leading-tight"
-                    >
-                        Decarbonization Is <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">Becoming Structural</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto"
-                    >
-                        Industrial <span className="text-green-300">decarbonization</span> is transitioning from voluntary ambition to <span className="text-blue-300">mandatory economics</span>, creating sustained demand for <span className="text-green-400 font-semibold">low-carbon inputs</span> across global supply chains.
-                    </motion.p>
+                <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20">
+                    <div className="max-w-4xl text-left animate-fade-in-up">
+                        <span className="inline-flex items-center gap-2 py-2 px-4 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-bold text-xs uppercase tracking-widest mb-6 backdrop-blur-md">
+                            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                            MARKETS & SCALE
+                        </span>
+                        <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1]">
+                            The Commercial Opportunity <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">for SOFC at Global Scale</span>
+                        </h1>
+                        <p className="text-lg md:text-3xl text-slate-200 font-light leading-relaxed mb-6">
+                            Where demand is forming. How fast it is growing. Why scale is inevitable.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            {/* 🔹 SECTION 1: STRUCTURAL PRESSURE */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Global decarbonization pressure is structural</h2>
-                        <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
-                            <p>
-                                Industrial decarbonization is no longer driven only by voluntary targets. Regulatory frameworks, investor expectations, and customer procurement requirements are converging.
-                            </p>
-                            <ul className="space-y-4">
-                                <li className="flex gap-3 items-start">
-                                    <Globe2 className="w-6 h-6 text-blue-600 mt-1 shrink-0" />
-                                    <span>Export markets increasingly require verified emissions reductions</span>
-                                </li>
-                                <li className="flex gap-3 items-start">
-                                    <BarChart3 className="w-6 h-6 text-blue-600 mt-1 shrink-0" />
-                                    <span>Industrial buyers face carbon pricing and disclosure mandates</span>
-                                </li>
-                                <li className="flex gap-3 items-start">
-                                    <Anchor className="w-6 h-6 text-blue-600 mt-1 shrink-0" />
-                                    <span>Long-term contracts favor suppliers with credible decarbonization pathways</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="relative h-[250px] md:h-[400px] w-full rounded-lg overflow-hidden shadow-xl border border-slate-100">
-                        <Image
-                            src="/images/market/GLOBAL MARKET — International Opportunity.png"
-                            alt="Global Market Opportunity"
-                            fill
-                            className="object-contain bg-white p-4"
-                        />
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 SECTION 2: WHY HYDROGEN MATTERS (SECTOR GRID) */}
-            <AnimatedSection className="py-12 md:py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center max-w-3xl mx-auto mb-10 md:mb-16">
-                        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-slate-900">Hydrogen’s role in hard-to-abate sectors</h2>
-                        <p className="text-lg text-slate-600">
-                            Certain industrial processes require high-temperature heat or molecular reducing agents where electrification alone is not viable. In these sectors, hydrogen is structural.
+            {/* PAGE INTRODUCTION */}
+            <AnimatedSection className="py-12 md:py-20 bg-white border-b border-slate-100">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <p className="text-xl md:text-2xl font-light leading-relaxed text-slate-800 mb-8">
+                        HYFU operates in a market that is no longer speculative. The global Solid Oxide Fuel Cell (SOFC) market is entering a <span className="font-semibold text-blue-600">scale phase</span>, driven by structural shifts in energy demand: grid instability, data-center growth, industrial electrification, hydrogen policy support, and decarbonization mandates.
+                    </p>
+                    <p className="text-slate-600 text-lg leading-relaxed mb-8">
+                        This page translates independent market data into clear commercial insight: how large the market is, how fast it is growing, which segments matter, and where capital is concentrating.
+                    </p>
+                    <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 inline-block text-left mb-8 shadow-sm">
+                        <p className="text-slate-700 font-medium italic">
+                            This is a markets and scale page, not a technology explainer. There is no electrochemistry, no stack theory, and no manufacturing detail—only commercial reality, adoption signals, and scale dynamics.
                         </p>
                     </div>
+                </div>
+            </AnimatedSection>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Steel */}
-                        <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
-                            <div className="relative h-40 w-full mb-4 rounded overflow-hidden bg-slate-50">
-                                <Image src="/images/market/Introduction-to-Hydrogen-Based-Steel-Plant-Green-Steel-Revolution.jpg" alt="Green Steel" fill className="object-contain" />
+            {/* 1. GLOBAL MARKET SIZE */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 border-b border-slate-200">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-start">
+                        <div className="order-2 lg:order-1">
+                            <div className="relative h-[450px] w-full rounded-3xl overflow-hidden shadow-xl border border-white bg-white p-6">
+                                <Image
+                                    src="/images/market/Global SOFC Market Size & Growth Trajectory.webp"
+                                    alt="Global SOFC Market Size"
+                                    fill
+                                    className="object-contain"
+                                />
                             </div>
-                            <h4 className="font-bold text-slate-900 mb-2">Steel & Ironmaking</h4>
-                            <p className="text-sm text-slate-600">Direct reduced iron pathways.</p>
                         </div>
-                        {/* Refining */}
-                        <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
-                            <div className="relative h-40 w-full mb-4 rounded overflow-hidden">
-                                <Image src="/images/market/4-hydrocracking-flow-with-filters20200717.gif" alt="Refining" fill className="object-contain" />
+                        <div className="order-1 lg:order-2">
+                            <SectionHeader
+                                label="1. Global SOFC Market Size"
+                                title="A Market Moving from Billions to Hundreds of Billions"
+                                description="This growth rate places SOFCs among the fastest-scaling power generation technologies globally, outperforming most conventional distributed energy assets."
+                            />
+
+                            <div className="grid gap-6">
+                                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                                    <h4 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2"><BarChart3 className="text-blue-600" /> Independent Analysis (Roots Analysis)</h4>
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center border-b border-slate-100 pb-2">
+                                            <span className="text-slate-600">Market Size (2026)</span>
+                                            <span className="font-bold text-slate-900">USD 3.19 Billion</span>
+                                        </div>
+                                        <div className="flex justify-between items-center border-b border-slate-100 pb-2">
+                                            <span className="text-slate-600">Projected (2040)</span>
+                                            <span className="font-bold text-slate-900">USD 143.66 Billion</span>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-slate-600">CAGR (2026–2040)</span>
+                                            <span className="font-bold text-green-600 text-xl">31.25%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="p-6 bg-blue-50 bg-opacity-50 rounded-2xl border border-blue-100">
+                                    <h5 className="font-bold text-slate-900 mb-2 text-sm uppercase">Why This Matters</h5>
+                                    <ul className="space-y-2 text-slate-700 text-sm">
+                                        <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5" /> Sustained 30%+ CAGR signals structural demand.</li>
+                                        <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5" /> Expansion driven by use-case pull, not just subsidies.</li>
+                                        <li className="flex gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5" /> Favors platforms that scale early.</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <h4 className="font-bold text-slate-900 mb-2">Refining</h4>
-                            <p className="text-sm text-slate-600">Desulfurization & hydrocracking.</p>
-                        </div>
-                        {/* Ammonia */}
-                        <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
-                            <div className="relative h-40 w-full mb-4 rounded overflow-hidden">
-                                <Image src="/images/market/AMMONIA & FERTILIZERS — Green Ammonia Market.png" alt="Green Ammonia" fill className="object-contain p-2" />
-                            </div>
-                            <h4 className="font-bold text-slate-900 mb-2">Ammonia</h4>
-                            <p className="text-sm text-slate-600">Fertilizers & chemical feedstocks.</p>
-                        </div>
-                        {/* Heavy Industry */}
-                        <div className="bg-white p-4 rounded-lg shadow-sm border border-slate-200">
-                            <div className="relative h-40 w-full mb-4 rounded overflow-hidden">
-                                <Image src="/images/market/Hydrogen-Industry-Breakdown.jpg" alt="Industry Breakdown" fill className="object-contain" />
-                            </div>
-                            <h4 className="font-bold text-slate-900 mb-2">Heavy Industry</h4>
-                            <p className="text-sm text-slate-600">High-grade industrial heat.</p>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 3: LIMITATIONS */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div className="order-2 lg:order-1 relative h-[300px] md:h-[500px] w-full rounded-lg overflow-hidden shadow-xl border border-slate-100">
-                        <Image
-                            src="/images/market/WHY APPLICATION FOCUS MATTERS — Economics Problem.png"
-                            alt="Economics Problem"
-                            fill
-                            className="object-contain bg-slate-50 p-4"
-                        />
+            {/* 2. DRIVING FORCES */}
+            <AnimatedSection className="py-12 md:py-20 bg-white relative">
+                <div className="max-w-7xl mx-auto px-6">
+                    <SectionHeader
+                        label="2. Market Drivers"
+                        title="Demand-Side Forces Are Converging"
+                        description="Key macro drivers behind SOFC adoption."
+                        className="mx-auto text-center"
+                    />
+
+                    <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {[
+                                { t: "Clean Reliance", d: "Corporates need low-emission power without intermittency.", i: Leaf },
+                                { t: "Fuel Flexibility", d: "De-risks regional constraints (Natural Gas, Biogas, Hydrogen).", i: Layers },
+                                { t: "Grid Unreliability", d: "Data centers & factories moving power on-site.", i: Zap },
+                                { t: "Policy Alignment", d: "Subsidies shorten payback periods.", i: Scale }
+                            ].map((item, i) => (
+                                <div key={i} className="p-6 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-lg transition-all duration-300">
+                                    <item.i className="w-8 h-8 text-blue-600 mb-4" />
+                                    <h4 className="font-bold text-slate-900 mb-2">{item.t}</h4>
+                                    <p className="text-slate-600 text-sm">{item.d}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="relative h-[500px] w-full rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-white p-6">
+                            <Image
+                                src="/images/market/What Is Driving Market Expansion.png"
+                                alt="Market Drivers"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
                     </div>
-                    <div className="order-1 lg:order-2">
-                        <span className="text-red-600 font-bold tracking-widest text-xs uppercase mb-4 block">The Current Bottleneck</span>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Why incremental efficiency is not enough</h2>
-                        <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
-                            <p>
-                                Many green hydrogen initiatives focus on marginal improvements to electrolyzers. While technically meaningful, these often fail to change project economics at scale.
-                            </p>
-                            <ul className="space-y-4">
-                                <li className="flex gap-3 items-center"><span className="text-red-500 font-bold">×</span> Small efficiency gains do not offset high electricity costs</li>
-                                <li className="flex gap-3 items-center"><span className="text-red-500 font-bold">×</span> Capital intensity remains a deployment barrier</li>
-                                <li className="flex gap-3 items-center"><span className="text-red-500 font-bold">×</span> Project bankability depends on sustained cost advantage</li>
-                            </ul>
-                            <div className="p-6 bg-slate-50 border-l-4 border-slate-900 mt-6">
-                                <p className="text-slate-900 font-medium">
-                                    HELIONYX is designed around a different premise: achieving a step-change in energy input, rather than incremental optimization.
+                </div>
+            </AnimatedSection>
+
+            {/* 3. MARKET SEGMENTATION */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 border-y border-slate-200">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-xl border border-white bg-white p-6">
+                            <Image
+                                src="/images/market/Market Segmentation by Application.webp" // Prioritize webp
+                                alt="Market Segmentation"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
+                        <div className="order-1 lg:order-2">
+                            <SectionHeader
+                                label="3. Segmentation"
+                                title="Stationary Power Dominates"
+                                description="Stationary applications: 60.40% of total SOFC market (2026). Portable segments grow in units, but stationary drives revenue."
+                            />
+
+                            <div className="space-y-6">
+                                <div className="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                                    <h5 className="font-bold text-slate-900 mb-3">Why Stationary Dominates</h5>
+                                    <ul className="space-y-2 text-slate-600">
+                                        <div className="flex justify-between border-b border-slate-50 py-2"><span>System Size</span><span className="font-semibold text-blue-600">MW-scale</span></div>
+                                        <div className="flex justify-between border-b border-slate-50 py-2"><span>Utilization</span><span className="font-semibold text-blue-600">Continuous (24/7)</span></div>
+                                        <div className="flex justify-between py-2"><span>Pricing</span><span className="font-semibold text-blue-600">Premium for Quality</span></div>
+                                    </ul>
+                                </div>
+                                <div className="p-6 bg-slate-100 rounded-2xl">
+                                    <h5 className="font-bold text-slate-900 text-sm uppercase mb-2">Key Growth Contributors</h5>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Data Centers", "Industrial Microgrids", "Commercial Campuses", "Distributed Gen"].map((tag, i) => (
+                                            <span key={i} className="px-3 py-1 bg-white rounded-full text-xs font-bold text-slate-600 border border-slate-200 shadow-sm">{tag}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 4. END-USER DEMAND */}
+            <AnimatedSection className="py-12 md:py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <SectionHeader
+                        label="4. End-User Demand"
+                        title="Where Adoption Is Concentrated"
+                        description="SOFC adoption is led by high-value energy users who face high downtime costs and high energy intensity."
+                        className="mx-auto text-center"
+                    />
+
+                    <div className="grid lg:grid-cols-2 gap-12 mb-12">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="relative h-[250px] rounded-2xl overflow-hidden shadow-lg border border-slate-100 bg-white p-2">
+                                <Image src="/images/market/End-User Demand.webp" alt="End User Demand Chart" fill className="object-contain" />
+                            </div>
+                            <div className="relative h-[250px] rounded-2xl overflow-hidden shadow-lg border border-slate-100 bg-white p-2">
+                                <Image src="/images/market/End-User Demand2.png" alt="End User Demand Graph" fill className="object-contain" />
+                            </div>
+                            <div className="col-span-2 relative h-[300px] rounded-2xl overflow-hidden shadow-lg border border-slate-100 bg-white p-2">
+                                <Image src="/images/market/End-User Demand.avif" alt="End User Demand Overview" fill className="object-contain" />
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col justify-center space-y-8">
+                            <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200">
+                                <h4 className="text-xl font-bold text-slate-900 mb-4">Primary Segments</h4>
+                                <ul className="space-y-3">
+                                    {["Commercial & Industrial Facilities", "Data Centers (High Growth)", "Utilities & Energy Service Providers", "Defense & Critical Infrastructure"].map((item, i) => (
+                                        <li key={i} className="flex gap-3 text-slate-700">
+                                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 shrink-0"></div>
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="bg-blue-600 text-white p-8 rounded-3xl shadow-xl">
+                                <h4 className="font-bold text-xl mb-2 flex items-center gap-2"><Activity className="w-6 h-6" /> Market Insight</h4>
+                                <p className="leading-relaxed opacity-90">
+                                    "SOFC adoption correlates more strongly with uptime sensitivity than with energy price alone."
                                 </p>
                             </div>
                         </div>
@@ -177,199 +291,233 @@ export default function MarketPage() {
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 4: COST CURVES */}
-            <AnimatedSection className="py-12 md:py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Cost curves and industrial adoption</h2>
-                        <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                            Industrial adoption follows consistent economic patterns: early pilots validate feasibility, but adoption accelerates only after cost parity is reached.
-                        </p>
-                        <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                            For green hydrogen, this inflection point centers around the <strong className="text-slate-900">$2/kg production threshold</strong>. Below this level, hydrogen transitions from a decarbonization experiment to a competitive industrial input.
-                        </p>
-                    </div>
-                    <div className="relative h-[250px] md:h-[400px] w-full rounded-lg overflow-hidden shadow-xl border border-slate-100 bg-white">
-                        <Image
-                            src="/images/market/Where Hydrogen Economics Finally Work.png"
-                            alt="Hydrogen Economics"
-                            fill
-                            className="object-contain p-4"
-                        />
+            {/* 5. REGIONAL DYNAMICS */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 border-y border-slate-200">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <SectionHeader
+                                label="5. Regional Dynamics"
+                                title="Asia-Pacific Leads in Scale"
+                                description="Asia-Pacific: ~40.21% share. Driven by rapid industrialization, data-center buildout, and strong government support (Japan, Korea, China)."
+                            />
+                            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6">
+                                <p className="text-slate-700 text-sm leading-relaxed">
+                                    <span className="font-bold text-blue-600">Example:</span> Japan’s ~USD 3 billion hydrogen infrastructure commitment directly supports fuel-flexible SOFC deployments using LNG today and green hydrogen tomorrow.
+                                </p>
+                            </div>
+                        </div>
+                        <div className="grid gap-6">
+                            <div className="relative h-[300px] w-full rounded-2xl overflow-hidden shadow-xl border border-white bg-white p-4">
+                                <Image src="/images/market/Regional Market Dynamics.webp" alt="Regional Share" fill className="object-contain" />
+                            </div>
+                            <div className="relative h-[300px] w-full rounded-2xl overflow-hidden shadow-xl border border-white bg-white p-4">
+                                <Image src="/images/market/Regional Market Dynamics2.jpg" alt="Regional Growth Map" fill className="object-contain" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 5: POWER AVAILABILITY */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div className="order-2 lg:order-1 relative h-[250px] md:h-[400px] w-full rounded-lg overflow-hidden shadow-xl border border-slate-100 bg-white">
+            {/* 6. CAPITAL & INVESTMENT */}
+            <AnimatedSection className="py-12 md:py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 bg-white p-6">
                         <Image
-                            src="/images/market/ENERGY SYSTEM INTEGRATION — Grid & Renewables.png"
-                            alt="Grid Integration"
+                            src="/images/market/Capital, Investment & Commercial Momentum.jpg"
+                            alt="Capital Flow"
                             fill
-                            className="object-contain p-4"
+                            className="object-contain"
                         />
                     </div>
                     <div className="order-1 lg:order-2">
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Power availability is a gating factor</h2>
-                        <div className="space-y-6 text-slate-600 text-lg leading-relaxed">
-                            <p>
-                                In many regions, deployment is constrained by access to affordable electricity regarding grid congestion and intermittent renewable availability.
-                            </p>
-                            <p>
-                                <strong className="text-slate-900">Reducing electricity intensity per kilogram:</strong>
-                            </p>
-                            <ul className="grid gap-3">
-                                <li className="flex gap-3 items-center"><Zap className="text-yellow-500 w-5 h-5" /> Lowers total power requirements</li>
-                                <li className="flex gap-3 items-center"><Zap className="text-yellow-500 w-5 h-5" /> Improves utilization of renewables</li>
-                                <li className="flex gap-3 items-center"><Zap className="text-yellow-500 w-5 h-5" /> Enables deployment in grid-constrained regions</li>
-                            </ul>
+                        <SectionHeader
+                            label="6. Capital Momentum"
+                            title="Flowing Toward Deployment"
+                            description="Capital is flowing toward deployment, not pilots. SOFCs are transitioning from a 'technology category' to an infrastructure asset class."
+                        />
+                        <div className="space-y-4">
+                            <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <Building2 className="w-8 h-8 text-slate-400 shrink-0" />
+                                <div>
+                                    <h4 className="font-bold text-slate-900 text-sm">Large Partnerships</h4>
+                                    <p className="text-slate-600 text-sm">Multi-billion-dollar frameworks for data centers.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <Factory className="w-8 h-8 text-slate-400 shrink-0" />
+                                <div>
+                                    <h4 className="font-bold text-slate-900 text-sm">Manufacturing Expansion</h4>
+                                    <p className="text-slate-600 text-sm">New facilities supporting hundreds of MW/year.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                                <Coins className="w-8 h-8 text-slate-400 shrink-0" />
+                                <div>
+                                    <h4 className="font-bold text-slate-900 text-sm">Strategic Investors</h4>
+                                    <p className="text-slate-600 text-sm">Clean energy funds & sovereign programs.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 6: EXPORT & INDIA */}
-            <AnimatedSection className="py-12 md:py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16">
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">India’s role in global hydrogen markets</h2>
-                        <p className="text-lg text-slate-600 mb-6">
-                            India’s strategy includes both domestic decarbonization and export potential. Cost-efficient production improves delivered competitiveness and long-term supply reliability.
-                        </p>
-                        <h4 className="font-bold text-slate-900 mb-4">Export-linked opportunities include:</h4>
-                        <ul className="space-y-3 text-slate-700 mb-8">
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span>Green ammonia for international fertilizer markets</span>
-                            </li>
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span>Hydrogen-based fuels and derivatives</span>
-                            </li>
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span>Low-carbon industrial inputs embedded in global supply chains</span>
-                            </li>
-                        </ul>
-                        <div className="relative h-[200px] md:h-[300px] w-full rounded-lg overflow-hidden shadow-lg bg-white mb-6">
+            {/* 7. BALANCE OF PLANT */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 border-y border-slate-200">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <SectionHeader
+                        label="7. Balance-of-Plant"
+                        title="Where Value Concentrates"
+                        description="The Balance of Plant (BoP) segment holds the largest share by component."
+                        className="mx-auto"
+                    />
+                    <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+                        <div className="grid md:grid-cols-3 gap-8 text-left">
+                            <div className="col-span-2">
+                                <h4 className="text-xl font-bold text-slate-900 mb-4">Why BoP Drives Success</h4>
+                                <ul className="space-y-3 text-slate-600">
+                                    <li className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500" /> System efficiency & load-following</li>
+                                    <li className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500" /> Reliability & Uptime</li>
+                                    <li className="flex gap-3"><CheckCircle2 className="w-5 h-5 text-blue-500" /> Site-specific customization</li>
+                                </ul>
+                            </div>
+                            <div className="flex flex-col justify-center border-l border-slate-100 pl-8">
+                                <p className="text-lg font-bold text-blue-600 mb-2">Implication</p>
+                                <p className="text-slate-600 text-sm italic">
+                                    "Winning requires system-level engineering excellence, not just cell performance."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 8. COMPETITIVE LANDSCAPE */}
+            <AnimatedSection className="py-12 md:py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <SectionHeader
+                        label="8. Competitive Landscape"
+                        title="A Diverse Ecosystem of Global Players"
+                        description="The global SOFC market is supported by a robust mix of established industrial giants and specialized innovators. From stack manufacturing to full system integration, the ecosystem is categorized by technology type and regional strength, reflecting a mature supply chain ready for global scale."
+                        className="mx-auto text-center"
+                    />
+
+                    <div className="max-w-5xl mx-auto">
+                        <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 mb-8">
+                            <h4 className="font-bold text-slate-900 mb-4 text-lg">Market Ecosystem Analysis</h4>
+                            <div className="grid md:grid-cols-2 gap-8 text-slate-700 leading-relaxed">
+                                <p>
+                                    The landscape is segmented by <strong>Region</strong> (North America, Europe, Asia Pacific) and <strong>Value Chain Role</strong>. North America and Europe lead in system innovation and large-scale stationary deployment, driven by companies like Bloom Energy and Ceres.
+                                </p>
+                                <p>
+                                    Asia Pacific is a powerhouse for manufacturing scale and residential adoption (Ene-Farm), with major congratulations from industrial conglomerates like Mitsubishi and Aisin. This regional specialization creates a complementary global supply chain.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="relative h-[500px] w-full rounded-2xl overflow-hidden shadow-xl border border-slate-100 bg-white p-6">
                             <Image
-                                src="/images/market/INDIA MARKET — Strategic Growth.png"
-                                alt="India Market Growth"
+                                src="/images/market/solid-oxide-fuel-cell-market-by-example-players-2026.webp"
+                                alt="Major Players Map"
                                 fill
-                                className="object-contain p-4"
+                                className="object-contain"
                             />
                         </div>
-                    </div>
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Ammonia & Export Derivatives</h2>
-                        <p className="text-lg text-slate-600 mb-6">
-                            Hydrogen is the primary feedstock for green ammonia and methanol, enabling the export of renewable energy to demand centers.
+                        <p className="text-center text-slate-400 text-sm mt-4">
+                            Global SOFC Market: Key players categorized by region and technology focus.
                         </p>
-                        <h4 className="font-bold text-slate-900 mb-4">Cost-efficient production improves:</h4>
-                        <ul className="space-y-3 text-slate-700 mb-8">
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span>Delivered cost competitiveness</span>
-                            </li>
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span>Reliability of long-term supply</span>
-                            </li>
-                            <li className="flex gap-3 items-start">
-                                <ArrowRight className="w-5 h-5 text-blue-600 mt-1 shrink-0" />
-                                <span>Viability of export-linked offtake structures</span>
-                            </li>
-                        </ul>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="relative h-32 w-full bg-white rounded border border-slate-200 overflow-hidden">
-                                <Image src="/images/market/ThyssenKrupp-NH3-Event-renewable-ammonia.png" alt="Ammonia Event" fill className="object-cover" />
+                    </div>
+                </div>
+            </AnimatedSection>
+
+            {/* 9. CHALLENGES */}
+            <AnimatedSection className="py-12 md:py-20 bg-slate-50 border-y border-slate-200">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <SectionHeader
+                                label="9. Challenges & Constraints"
+                                title="Real Constraints Shaping Scale"
+                                description="High-temp materials, competition from batteries, and workforce shortages. These challenges don't cap the market—they define who wins."
+                            />
+                            <div className="space-y-4">
+                                <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
+                                    <h5 className="font-bold text-slate-900 mb-1">Standardized Platforms</h5>
+                                    <p className="text-xs text-slate-500">Market Response</p>
+                                </div>
+                                <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
+                                    <h5 className="font-bold text-slate-900 mb-1">Volume Production</h5>
+                                    <p className="text-xs text-slate-500">Market Response</p>
+                                </div>
+                                <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
+                                    <h5 className="font-bold text-slate-900 mb-1">Subsidy Integration</h5>
+                                    <p className="text-xs text-slate-500">Market Response</p>
+                                </div>
                             </div>
-                            <div className="relative h-32 w-full bg-white rounded border border-slate-200 overflow-hidden">
-                                <Image src="/images/market/Renewable Power to NH3.jpg" alt="Power to NH3" fill className="object-cover" />
+                        </div>
+                        <div className="grid gap-6">
+                            <div className="relative h-[300px] w-full rounded-2xl overflow-hidden shadow-xl border border-white bg-white p-4">
+                                <Image src="/images/market/Market Challenges & Constraints.png" alt="Challenges Diagram" fill className="object-contain" />
                             </div>
-                            <div className="relative h-32 w-full bg-white rounded border border-slate-200 overflow-hidden col-span-2">
-                                <Image src="/images/market/Direct-ammonia-synthesis-by-alkaline-membrane-image.webp" alt="Ammonia Synthesis" fill className="object-cover" />
+                            <div className="relative h-[300px] w-full rounded-2xl overflow-hidden shadow-xl border border-white bg-white p-4">
+                                <Image src="/images/market/Market Challenges & Constraints2.jpg" alt="Constraints Graph" fill className="object-contain" />
                             </div>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 SECTION 7: FINANCING */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold mb-6 md:mb-8 text-slate-900">Financing and bankability</h2>
-                    <p className="text-lg text-slate-600 mb-12">
-                        Lenders evaluate predictability, scalability, and technology risk. Platforms that materially reduce electricity input improve bankability by stabilizing OPEX.
-                    </p>
-                    <div className="relative h-[250px] md:h-[400px] w-full rounded-lg overflow-hidden shadow-xl border border-slate-100 bg-white">
-                        <Image
-                            src="/images/market/green-hydrogen-market-size.webp"
-                            alt="Market Size & Financing"
-                            fill
-                            className="object-contain p-6"
-                        />
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 SECTION 8: CLUSTER DEPLOYMENT */}
-            <AnimatedSection className="py-12 md:py-24 bg-slate-50 border-y border-slate-200">
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Regional and cluster-based deployment</h2>
-                        <ul className="space-y-4 text-lg text-slate-600">
-                            <li className="flex gap-3 items-center"><Factory className="text-slate-400 w-5 h-5" /> Shared infrastructure</li>
-                            <li className="flex gap-3 items-center"><Factory className="text-slate-400 w-5 h-5" /> Higher utilization rates</li>
-                            <li className="flex gap-3 items-center"><Factory className="text-slate-400 w-5 h-5" /> Reduced logistics costs</li>
-                            <li className="flex gap-3 items-center"><Factory className="text-slate-400 w-5 h-5" /> Coordinated decarbonization</li>
-                        </ul>
-                    </div>
-                    <div className="relative h-[250px] md:h-[400px] w-full rounded-lg overflow-hidden shadow-xl bg-white">
-                        <Image
-                            src="/images/market/DISTRIBUTED & ON-SITE HYDROGEN — Modular & Local.png"
-                            alt="Cluster Deployment"
-                            fill
-                            className="object-contain p-4"
-                        />
-                    </div>
-                </div>
-            </AnimatedSection>
-
-            {/* 🔹 SECTION 9 & 10: FUTURE & POSITIONING */}
-            <AnimatedSection className="py-12 md:py-24 bg-white">
-                <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16">
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Long-Term Demand</h2>
-                        <p className="text-slate-600 mb-6">Beyond 2030, demand expands into synthetic fuels, storage, and emerging processes.</p>
-                        <div className="relative h-64 w-full rounded-lg overflow-hidden border border-slate-200 bg-slate-50">
-                            <Image src="/images/market/hydrogen-fuel-cell-tri-generation.webp" alt="Future Tech" fill className="object-contain" />
+            {/* 10. HYFU VISION */}
+            <AnimatedSection className="py-12 md:py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 bg-white p-6">
+                            <Image
+                                src="/images/market/What Market Scale Means for HYFU.webp"
+                                alt="HYFU Scale Vision"
+                                fill
+                                className="object-contain"
+                            />
                         </div>
-                    </div>
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-slate-900">Strategic Positioning</h2>
-                        <p className="text-slate-600 mb-6">
-                            The market is transitioning from policy-driven pilots to economics-driven deployment. HELIONYX addresses the central constraint: production cost.
-                        </p>
-                        <div className="relative h-64 w-full rounded-lg overflow-hidden border border-slate-200">
-                            <Image src="/images/market/dville-a6-opt.webp" alt="Strategic Plant" fill className="object-contain" />
+                        <div className="order-1 lg:order-2">
+                            <SectionHeader
+                                label="10. Implication for HYFU"
+                                title="Scale Is No Longer Optional"
+                                description="The next decade will separate platforms built for repeatable deployment from technologies that remain niche."
+                            />
+                            <div className="p-8 bg-blue-600 text-white rounded-3xl shadow-lg">
+                                <h4 className="text-2xl font-bold mb-4">Deploy Phase</h4>
+                                <p className="leading-relaxed opacity-90">
+                                    HYFU positions itself for the deployment phase of the SOFC market, where scale, reliability, and customer value determine leadership.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </AnimatedSection>
 
-            {/* 🔹 FINAL CTA */}
-            <div className="py-24 bg-gradient-to-br from-sky-200 to-blue-200 text-slate-900 text-center px-6 border-t border-blue-400/50">
-                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-slate-900">Establish Your Position</h2>
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <Link href="/technology" className="px-6 py-3 md:px-8 md:py-4 bg-blue-600 text-white font-bold rounded hover:bg-blue-500 transition-colors text-sm md:text-base">
-                        Explore the Technology
-                    </Link>
-                    <Link href="/partnership" className="px-6 py-3 md:px-8 md:py-4 bg-transparent border border-slate-400 text-slate-900 font-bold rounded hover:bg-slate-300/50 transition-colors text-sm md:text-base">
-                        View Partnership Models
-                    </Link>
+            {/* FAQ */}
+            <div className="bg-slate-50 py-12 md:py-20 border-t border-slate-200">
+                <div className="max-w-3xl mx-auto px-6">
+                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Frequently Asked Questions</h2>
+                    <div className="space-y-4">
+                        {[
+                            { q: "How fast is the SOFC market really growing?", a: "At ~31% CAGR from 2026 to 2040, among the fastest in clean energy infrastructure." },
+                            { q: "Which segment matters most commercially?", a: "Stationary power applications, representing over 60% of market value." },
+                            { q: "Which region leads adoption?", a: "Asia-Pacific, driven by industrial demand and government support." },
+                            { q: "Is growth driven only by subsidies?", a: "No. Reliability, grid constraints, and data-center demand are primary drivers." },
+                            { q: "What limits scale today?", a: "Materials supply, skilled labor, and upfront costs—but these are actively being addressed." }
+                        ].map((faq, i) => (
+                            <FAQItem
+                                key={i}
+                                question={faq.q}
+                                answer={faq.a}
+                                isOpen={openFAQ === i}
+                                onClick={() => toggleFAQ(i)}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
 
