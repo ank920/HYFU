@@ -55,7 +55,7 @@ export default function SustainabilityPage() {
                         className="space-y-6 max-w-3xl mx-auto"
                     >
                         <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
-                            HELIONYX approaches sustainability as an engineering and system-design challenge — reducing emissions by fundamentally lowering the energy required to produce industrial hydrogen, rather than relying on offsets or temporary policy support.
+                            HYFUX approaches sustainability as an engineering and system-design challenge — reducing emissions by fundamentally lowering the energy required to produce industrial hydrogen, rather than relying on offsets or temporary policy support.
                         </p>
                         <p className="text-lg md:text-xl text-slate-300 leading-relaxed font-semibold">
                             Sustainability, in our view, must scale with industry. That requires systems that are efficient, resilient, and economically viable under real operating conditions.
@@ -73,7 +73,7 @@ export default function SustainabilityPage() {
                             <p>
                                 For industrial decarbonization to scale globally, sustainability must be structural, not cosmetic. Offset-driven approaches may address short-term accounting needs, but they do not solve the underlying energy and emissions challenge at industrial scale.
                             </p>
-                            <h4 className="font-bold text-slate-900">HELIONYX embeds sustainability directly into system design by focusing on:</h4>
+                            <h4 className="font-bold text-slate-900">HYFUX embeds sustainability directly into system design by focusing on:</h4>
                             <ul className="space-y-3">
                                 <li className="flex gap-3 items-center">
                                     <Zap className="w-5 h-5 text-green-600 shrink-0" />
@@ -128,7 +128,7 @@ export default function SustainabilityPage() {
                                 </div>
                                 <ArrowRight className="text-slate-300" />
                                 <div className="text-right">
-                                    <span className="block text-sm text-green-500 font-bold uppercase">Helionyx</span>
+                                    <span className="block text-sm text-green-500 font-bold uppercase">HYFUX</span>
                                     <span className="text-2xl font-bold text-slate-900">30–35 <span className="text-base text-slate-500 font-normal">kWh/kg</span></span>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@ export default function SustainabilityPage() {
                             </p>
                         </div>
 
-                        <h4 className="font-bold text-slate-900 mb-4">By reducing energy input to 30–35 kWh/kg, HELIONYX enables:</h4>
+                        <h4 className="font-bold text-slate-900 mb-4">By reducing energy input to 30–35 kWh/kg, HYFUX enables:</h4>
                         <ul className="space-y-3">
                             <li className="flex gap-3 items-center text-slate-700">
                                 <Leaf className="w-5 h-5 text-green-500 shrink-0" />
@@ -165,7 +165,7 @@ export default function SustainabilityPage() {
                     <div>
                         <h2 className="text-3xl font-bold mb-6 text-slate-900">Beyond carbon intensity</h2>
                         <p className="text-lg text-slate-600 mb-6">
-                            True sustainability extends beyond emissions metrics alone. HELIONYX’s lower energy intensity delivers system-level benefits, including:
+                            True sustainability extends beyond emissions metrics alone. HYFUX’s lower energy intensity delivers system-level benefits, including:
                         </p>
                         <ul className="grid gap-4">
                             <li className="bg-slate-50 p-5 rounded-lg border border-slate-100">
@@ -211,7 +211,7 @@ export default function SustainabilityPage() {
                         </div>
                         <h3 className="text-2xl font-bold mb-4 text-slate-900">Designed for long-term sustainability</h3>
                         <p className="text-slate-600 mb-4">
-                            HELIONYX avoids dependence on scarce, high-risk, or geopolitically sensitive materials such as platinum-group metals commonly used in electrolyzer systems.
+                            HYFUX avoids dependence on scarce, high-risk, or geopolitically sensitive materials such as platinum-group metals commonly used in electrolyzer systems.
                         </p>
                         <ul className="space-y-2 text-sm text-slate-700 mb-6">
                             <li className="flex gap-2 items-center"><ShieldCheck className="w-4 h-4 text-green-600" /> Reduces upstream mining and processing emissions</li>
@@ -263,7 +263,7 @@ export default function SustainabilityPage() {
                     <div className="order-1 lg:order-2">
                         <h2 className="text-3xl font-bold mb-6 text-slate-900">Supporting real decarbonization pathways</h2>
                         <p className="text-lg text-slate-600 mb-6">
-                            HELIONYX aligns with global and national decarbonization frameworks by enabling hydrogen solutions that are both economically and environmentally sustainable.
+                            HYFUX aligns with global and national decarbonization frameworks by enabling hydrogen solutions that are both economically and environmentally sustainable.
                         </p>
                         <div className="bg-slate-50 p-6 rounded-lg border border-slate-100">
                             <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
@@ -285,7 +285,7 @@ export default function SustainabilityPage() {
                             </ul>
                         </div>
                         <p className="mt-8 text-slate-600">
-                            By addressing the cost and energy intensity of hydrogen production, HELIONYX supports real emissions reduction, not symbolic or accounting-based compliance.
+                            By addressing the cost and energy intensity of hydrogen production, HYFUX supports real emissions reduction, not symbolic or accounting-based compliance.
                         </p>
                     </div>
                 </div>
@@ -297,7 +297,7 @@ export default function SustainabilityPage() {
                     <div>
                         <h2 className="text-3xl font-bold mb-6 text-slate-900">Focused on measurable results</h2>
                         <p className="text-lg text-slate-600 mb-6">
-                            HELIONYX prioritizes sustainability outcomes that can be measured, verified, and scaled versus purely theoretical models.
+                            HYFUX prioritizes sustainability outcomes that can be measured, verified, and scaled versus purely theoretical models.
                         </p>
                         <div className="space-y-6">
                             <div className="flex gap-4 p-4 bg-white rounded-lg border border-slate-200">
@@ -340,7 +340,7 @@ export default function SustainabilityPage() {
             {/* 🔹 FINAL CTA */}
             <div className="py-16 md:py-24 bg-slate-800 text-white text-center px-6">
                 <p className="text-xl text-slate-300 max-w-2xl mx-auto mb-8">
-                    <span className="block text-white font-bold text-2xl mb-4">Sustainability at HELIONYX is not a separate initiative.</span>
+                    <span className="block text-white font-bold text-2xl mb-4">Sustainability at HYFUX is not a separate initiative.</span>
                     It is the result of engineering systems that consume less energy, scale responsibly, and integrate cleanly into real industrial environments.
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">

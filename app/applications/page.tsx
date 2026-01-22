@@ -71,7 +71,7 @@ export default function ApplicationsPage() {
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/images/application/hero.jpg"
-                        alt="HYFU Applications"
+                        alt="HYFUX Applications"
                         fill
                         className="object-cover opacity-60"
                         priority
@@ -86,7 +86,7 @@ export default function ApplicationsPage() {
                             3. Applications
                         </span>
                         <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1]">
-                            Where HYFU Delivers <br />
+                            Where HYFUX Delivers <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Measurable User Value</span>
                         </h1>
                         <p className="text-lg md:text-3xl text-slate-200 font-light leading-relaxed mb-6">
@@ -100,18 +100,18 @@ export default function ApplicationsPage() {
             <AnimatedSection className="py-12 md:py-20 bg-white border-b border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <p className="text-xl md:text-2xl font-light leading-relaxed text-slate-800 mb-8">
-                        HYFU’s power platforms are designed around <span className="font-semibold text-blue-600">customer outcomes</span>, not theoretical performance.
+                        HYFUX’s power platforms are designed around <span className="font-semibold text-blue-600">customer outcomes</span>, not theoretical performance.
                     </p>
                     <p className="text-slate-600 text-lg leading-relaxed mb-8">
-                        In real-world energy environments—where uptime, cost stability, emissions compliance, and scalability matter—HYFU systems deliver dispatchable, on-site power that performs consistently across industries.
+                        In real-world energy environments—where uptime, cost stability, emissions compliance, and scalability matter—HYFUX systems deliver dispatchable, on-site power that performs consistently across industries.
                     </p>
                     <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 inline-block text-left mb-8 shadow-sm">
                         <p className="text-slate-700 font-medium italic">
-                            This page focuses exclusively on how customers use HYFU systems, what problems they solve, and the business results achieved. There is no electrochemistry, no fuel-cell theory, and no manufacturing discussion—only applications, value creation, and use-case outcomes.
+                            This page focuses exclusively on how customers use HYFUX systems, what problems they solve, and the business results achieved. There is no electrochemistry, no fuel-cell theory, and no manufacturing discussion—only applications, value creation, and use-case outcomes.
                         </p>
                     </div>
                     <p className="text-lg font-bold text-slate-900">
-                        HYFU systems are deployed where energy failure is expensive, interruptions are unacceptable, and long-term operating economics matter more than short-term incentives.
+                        HYFUX systems are deployed where energy failure is expensive, interruptions are unacceptable, and long-term operating economics matter more than short-term incentives.
                     </p>
                 </div>
             </AnimatedSection>
@@ -140,8 +140,8 @@ export default function ApplicationsPage() {
                         <div className="order-1 lg:order-2">
                             <SectionHeader
                                 label="1. Application Framework"
-                                title="How Customers Use HYFU"
-                                description="Designed for on-site, behind-the-meter deployment. Across all applications, HYFU systems follow a common deployment logic."
+                                title="How Customers Use HYFUX"
+                                description="Designed for on-site, behind-the-meter deployment. Across all applications, HYFUX systems follow a common deployment logic."
                             />
 
                             <div className="grid gap-6">
@@ -208,7 +208,7 @@ export default function ApplicationsPage() {
                         <div className="space-y-8">
                             <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100">
                                 <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-xl">
-                                    <Cpu className="w-6 h-6 text-blue-600" /> How HYFU is used
+                                    <Cpu className="w-6 h-6 text-blue-600" /> How HYFUX is used
                                 </h4>
                                 <ul className="space-y-4">
                                     {["On-site baseload power (1–10+ MW scale)", "Grid as secondary source", "Diesel generators relegated to emergency-only use"].map((item, i) => (
@@ -244,7 +244,7 @@ export default function ApplicationsPage() {
                             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-[40px] -mr-16 -mt-16"></div>
                             <h4 className="font-bold text-2xl mb-4 flex items-center gap-3 relative z-10 text-blue-700"><Globe className="w-6 h-6" /> Use-Case Outcome</h4>
                             <p className="leading-relaxed text-slate-600 text-lg relative z-10 mb-6">
-                                "A 5 MW data center campus deploys HYFU systems to supply 70% of baseload demand, reducing grid dependence and cutting diesel generator runtime by &gt;90%."
+                                "A 5 MW data center campus deploys HYFUX systems to supply 70% of baseload demand, reducing grid dependence and cutting diesel generator runtime by &gt;90%."
                             </p>
                             <p className="text-sm text-slate-400 italic relative z-10 border-t border-slate-100 pt-4">Estimated — assumptions: Tier III facility, natural gas baseline.</p>
                         </div>
@@ -314,7 +314,7 @@ export default function ApplicationsPage() {
                     <div className="grid lg:grid-cols-3 gap-8">
                         <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:-translate-y-1 transition-transform">
                             <Factory className="w-10 h-10 text-blue-600 mb-6" />
-                            <h4 className="font-bold text-xl text-slate-900 mb-4">How HYFU is used</h4>
+                            <h4 className="font-bold text-xl text-slate-900 mb-4">How HYFUX is used</h4>
                             <ul className="space-y-3 text-slate-600">
                                 <li className="flex gap-3 text-sm"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5" /> Primary power source for critical lines</li>
                                 <li className="flex gap-3 text-sm"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5" /> CHP integration for process heat</li>
@@ -334,7 +334,7 @@ export default function ApplicationsPage() {
                         <div className="bg-slate-50 p-8 rounded-3xl shadow-lg flex flex-col justify-center border border-slate-200">
                             <h4 className="font-bold text-xl mb-4 text-blue-600">Illustrative Outcome</h4>
                             <p className="leading-relaxed text-slate-700 mb-6 font-light">
-                                "A specialty chemicals plant installs a 3 MW HYFU system to stabilize power for sensitive production lines, achieving consistent output quality and reducing grid-related shutdowns."
+                                "A specialty chemicals plant installs a 3 MW HYFUX system to stabilize power for sensitive production lines, achieving consistent output quality and reducing grid-related shutdowns."
                             </p>
                             <div className="w-full h-px bg-slate-200 mb-4"></div>
                             <p className="text-xs text-slate-500">Estimated — assumptions: 24/7 operation, grid volatility environment.</p>
@@ -393,7 +393,7 @@ export default function ApplicationsPage() {
 
                                 <div className="p-6 bg-blue-50/50 rounded-2xl border border-blue-100">
                                     <p className="text-slate-700 italic text-sm">
-                                        "A regional hospital deploys a HYFU system to supply continuous power to critical wings, improving resilience during grid outages."
+                                        "A regional hospital deploys a HYFUX system to supply continuous power to critical wings, improving resilience during grid outages."
                                     </p>
                                 </div>
                             </div>
@@ -452,7 +452,7 @@ export default function ApplicationsPage() {
                         <SectionHeader
                             label="6. Commercial Campuses"
                             title="Distributed Power for Dense Users"
-                            description="Business parks, research centers, and mixed-use developments face rising utility tariffs and space constraints. HYFU offers centralized on-site generation."
+                            description="Business parks, research centers, and mixed-use developments face rising utility tariffs and space constraints. HYFUX offers centralized on-site generation."
                             className="mx-auto"
                         />
                     </div>
@@ -510,7 +510,7 @@ export default function ApplicationsPage() {
                             <SectionHeader
                                 label="7. Economic Value"
                                 title="Predictable Energy Economics"
-                                description="HYFU systems are designed for high utilization, enabling customers to amortize capital over continuous operation."
+                                description="HYFUX systems are designed for high utilization, enabling customers to amortize capital over continuous operation."
                             />
 
                             <div className="space-y-6">
@@ -532,7 +532,7 @@ export default function ApplicationsPage() {
 
                             <div className="mt-10 p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
                                 <p className="text-slate-800 font-medium">
-                                    "Facilities operating HYFU systems at &gt;85% load factor achieve materially lower lifetime energy costs compared to grid + diesel combinations."
+                                    "Facilities operating HYFUX systems at &gt;85% load factor achieve materially lower lifetime energy costs compared to grid + diesel combinations."
                                 </p>
                             </div>
                         </div>
@@ -618,11 +618,11 @@ export default function ApplicationsPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Frequently Asked Questions</h2>
                     <div className="space-y-4">
                         {[
-                            { q: "Are HYFU systems used as backup or primary power?", a: "Primarily as primary baseload power, with the grid acting as backup." },
-                            { q: "Can HYFU support sensitive electronic loads?", a: "Yes. Systems deliver stable, grid-quality AC power suitable for sensitive equipment." },
+                            { q: "Are HYFUX systems used as backup or primary power?", a: "Primarily as primary baseload power, with the grid acting as backup." },
+                            { q: "Can HYFUX support sensitive electronic loads?", a: "Yes. Systems deliver stable, grid-quality AC power suitable for sensitive equipment." },
                             { q: "Are applications limited to large facilities?", a: "No. Modular configurations allow deployment from hundreds of kW to multi-MW sites." },
                             { q: "Do customers still need diesel generators?", a: "Often yes, but only for rare contingency scenarios—not routine operation." },
-                            { q: "Can HYFU systems integrate with renewables?", a: "Yes. They pair effectively with solar, wind, and battery storage within microgrids." }
+                            { q: "Can HYFUX systems integrate with renewables?", a: "Yes. They pair effectively with solar, wind, and battery storage within microgrids." }
                         ].map((faq, i) => (
                             <FAQItem
                                 key={i}

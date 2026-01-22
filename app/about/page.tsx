@@ -70,12 +70,12 @@ export default function AboutPage() {
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/images/about us/hero.jpg"
-                        alt="HYFU Industrial Scale"
+                        alt="HYFUX Industrial Scale"
                         fill
-                        className="object-cover blur-[2px]"
+                        className="object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent"></div>
+
                 </div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20">
@@ -85,7 +85,7 @@ export default function AboutPage() {
                             🏢 ABOUT US
                         </span>
                         <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1]">
-                            HYFU — Building the Backbone of <br />
+                            HYFUX — Building the Backbone of <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Reliable, Low-Carbon Power</span>
                         </h1>
                     </div>
@@ -98,7 +98,7 @@ export default function AboutPage() {
                     <div>
                         <h2 className="text-3xl font-bold text-slate-900 mb-6">Engineering First, Hype Last</h2>
                         <p className="text-lg text-slate-600 leading-relaxed mb-6 font-medium">
-                            HYFU is a clean-energy company focused on one clear mission: making reliable, low-carbon, on-site power practical at industrial scale.
+                            HYFUX is a clean-energy company focused on one clear mission: making reliable, low-carbon, on-site power practical at industrial scale.
                         </p>
                         <p className="text-lg text-slate-600 leading-relaxed mb-8">
                             We work at the intersection of advanced fuel-cell systems, real-world energy needs, and long-term infrastructure thinking. Our focus is not on incremental improvements, but on structural change in how power is generated.
@@ -144,7 +144,7 @@ export default function AboutPage() {
                     <div className="order-2 lg:order-1 relative h-[450px] w-full rounded-3xl overflow-hidden shadow-xl border border-white bg-white p-6">
                         <Image
                             src="/images/about us/What Makes HYFU Different.webp"
-                            alt="HYFU Differentiation"
+                            alt="HYFUX Differentiation"
                             fill
                             className="object-contain"
                         />
@@ -181,7 +181,7 @@ export default function AboutPage() {
                         <SectionHeader
                             label="4. Who We Serve"
                             title="Customers with Zero Tolerance for Power Failure"
-                            description="HYFU serves organizations that view energy as mission-critical infrastructure. For these customers, power systems must work every day, without exception."
+                            description="HYFUX serves organizations that view energy as mission-critical infrastructure. For these customers, power systems must work every day, without exception."
                         />
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             {[
@@ -222,7 +222,7 @@ export default function AboutPage() {
                         <SectionHeader
                             label="5. Long-Term Vision"
                             title="Preparing Today for Tomorrow’s Energy System"
-                            description="We believe the future energy system will be distributed, resilient, and fuel-flexible—and HYFU is positioning itself to be part of that foundation."
+                            description="We believe the future energy system will be distributed, resilient, and fuel-flexible—and HYFUX is positioning itself to be part of that foundation."
                         />
                         <div className="grid gap-4">
                             <div className="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
@@ -248,7 +248,7 @@ export default function AboutPage() {
                     <SectionHeader
                         label="6. Growth Strategy"
                         title="Scaling with Discipline"
-                        description="HYFU approaches growth deliberately. This disciplined approach ensures that growth strengthens the platform rather than diluting it."
+                        description="HYFUX approaches growth deliberately. This disciplined approach ensures that growth strengthens the platform rather than diluting it."
                         className="mx-auto text-center"
                     />
 
@@ -284,7 +284,7 @@ export default function AboutPage() {
                     <ShieldCheck className="w-16 h-16 text-blue-500 mx-auto mb-6" />
                     <h2 className="text-3xl md:text-5xl font-bold mb-6">Trust is Built Over Decades, Not Quarters</h2>
                     <p className="text-xl text-slate-300 mb-10 leading-relaxed">
-                        As an energy infrastructure company, HYFU understands the responsibility that comes with supplying power. We view every deployment as a long-term relationship, not a transaction.
+                        As an energy infrastructure company, HYFUX understands the responsibility that comes with supplying power. We view every deployment as a long-term relationship, not a transaction.
                     </p>
                     <div className="grid sm:grid-cols-2 gap-8 text-left max-w-2xl mx-auto">
                         <div className="flex gap-4">
@@ -311,14 +311,14 @@ export default function AboutPage() {
             {/* FAQ */}
             <div className="bg-white py-12 md:py-20 border-t border-slate-200">
                 <div className="max-w-3xl mx-auto px-6">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">About HYFU — FAQ</h2>
+                    <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">About HYFUX — FAQ</h2>
                     <div className="space-y-4">
                         {[
-                            { q: "Is HYFU a technology developer or an energy company?", a: "HYFU is both—a technology-driven company focused on delivering deployable energy infrastructure." },
-                            { q: "Does HYFU focus on one region or globally?", a: "HYFU is structured to support global deployment through regional partnerships." },
-                            { q: "Is HYFU focused only on hydrogen?", a: "No. HYFU systems are fuel-flexible today and hydrogen-ready for the future." },
-                            { q: "What stage is HYFU at?", a: "HYFU is focused on commercial deployment and platform expansion, not early-stage research." },
-                            { q: "How does HYFU define success?", a: "By systems that run reliably, deliver value, and earn long-term customer trust." }
+                            { q: "Is HYFUX a technology developer or an energy company?", a: "HYFUX is both—a technology-driven company focused on delivering deployable energy infrastructure." },
+                            { q: "Does HYFUX focus on one region or globally?", a: "HYFUX is structured to support global deployment through regional partnerships." },
+                            { q: "Is HYFUX focused only on hydrogen?", a: "No. HYFUX systems are fuel-flexible today and hydrogen-ready for the future." },
+                            { q: "What stage is HYFUX at?", a: "HYFUX is focused on commercial deployment and platform expansion, not early-stage research." },
+                            { q: "How does HYFUX define success?", a: "By systems that run reliably, deliver value, and earn long-term customer trust." }
                         ].map((faq, i) => (
                             <FAQItem
                                 key={i}

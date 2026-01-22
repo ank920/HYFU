@@ -84,12 +84,11 @@ export default function ContactPage() {
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/images/contact/hero img.jpg"
-                        alt="Contact HYFU"
+                        alt="Contact HYFUX"
                         fill
-                        className="object-cover blur-[2px]"
+                        className="object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent"></div>
                 </div>
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20">
@@ -115,7 +114,7 @@ export default function ContactPage() {
                     <div className="max-w-3xl">
                         <h2 className="text-3xl font-bold text-slate-900 mb-6">Direct, Professional Communication</h2>
                         <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                            We encourage direct contact. HYFU does not route serious inquiries through automated systems. All qualified inquiries are typically acknowledged within 1–2 business days.
+                            We encourage direct contact. HYFUX does not route serious inquiries through automated systems. All qualified inquiries are typically acknowledged within 1–2 business days.
                         </p>
                     </div>
 
@@ -125,21 +124,21 @@ export default function ContactPage() {
                             label="GENERAL INQUIRIES"
                             title="Initial Discussions"
                             desc="For introductions, high-level questions, and broader information request."
-                            email="info@hyfu.energy"
+                            email="info@hyfux.energy"
                         />
                         <ContactCard
                             icon={Briefcase}
                             label="BUSINESS & PARTNERSHIPS"
                             title="Strategic Alignment"
                             desc="For strategic partnerships, EPC collaboration, and fuel ecosystem alignment."
-                            email="partnerships@hyfu.energy"
+                            email="partnerships@hyfux.energy"
                         />
                         <ContactCard
                             icon={Settings}
                             label="TECHNICAL TEAMS"
                             title="Deployment & Specs"
                             desc="For site evaluations, power requirements, and system integration details."
-                            email="deployments@hyfu.energy"
+                            email="deployments@hyfux.energy"
                         />
                     </div>
                 </div>
@@ -160,7 +159,7 @@ export default function ContactPage() {
                         <SectionHeader
                             label="2. Prepare for Success"
                             title="Help Us Accelerate the Conversation"
-                            description="Providing a few key details upfront allows us to engage efficiently. HYFU engagements are most productive when discussions start with real operating parameters."
+                            description="Providing a few key details upfront allows us to engage efficiently. HYFUX engagements are most productive when discussions start with real operating parameters."
                         />
                         <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
                             <h4 className="font-bold text-slate-900 mb-6 flex items-center gap-2"><CheckCircle2 className="text-blue-600" /> Helpful Information</h4>
@@ -230,7 +229,7 @@ export default function ContactPage() {
                     <div className="grid md:grid-cols-4 gap-8">
                         {[
                             { step: "01", t: "Introductory Discussion", d: "Understanding objectives, constraints, and use case." },
-                            { step: "02", t: "Preliminary Fit Assessment", d: "Evaluating whether HYFU systems are suitable." },
+                            { step: "02", t: "Preliminary Fit Assessment", d: "Evaluating whether HYFUX systems are suitable." },
                             { step: "03", t: "Technical Deep Dive", d: "Power sizing, deployment model, and integration." },
                             { step: "04", t: "Next-Step Definition", d: "Site evaluation, partner alignment, commercial steps." }
                         ].map((item, i) => (
@@ -259,7 +258,7 @@ export default function ContactPage() {
                         <SectionHeader
                             label="5. Global Scope"
                             title="Designed for Global Deployment, Executed Locally"
-                            description="HYFU engages globally while working through regional partners. This allows us to adapt to local grid conditions, regulations, and safety standards."
+                            description="HYFUX engages globally while working through regional partners. This allows us to adapt to local grid conditions, regulations, and safety standards."
                         />
                         <div className="p-6 bg-blue-600 rounded-2xl text-white shadow-lg shadow-blue-600/20">
                             < Globe className="w-8 h-8 mb-4 opacity-80" />
@@ -278,11 +277,11 @@ export default function ContactPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Contact & Engagement FAQ</h2>
                     <div className="space-y-4">
                         {[
-                            { q: "Is HYFU open to early-stage discussions?", a: "Yes—provided there is a real application or deployment intent." },
+                            { q: "Is HYFUX open to early-stage discussions?", a: "Yes—provided there is a real application or deployment intent." },
                             { q: "Do you respond to RFPs and tenders?", a: "Yes. Relevant documentation can be shared after initial qualification." },
                             { q: "Can we schedule a technical call directly?", a: "Yes. Technical calls are scheduled after a brief initial exchange." },
                             { q: "Do you work with advisors and consultants?", a: "Yes, particularly for infrastructure, energy, and industrial projects." },
-                            { q: "Is HYFU limited to certain geographies?", a: "No. Engagements are global, with region-specific execution." }
+                            { q: "Is HYFUX limited to certain geographies?", a: "No. Engagements are global, with region-specific execution." }
                         ].map((faq, i) => (
                             <FAQItem
                                 key={i}

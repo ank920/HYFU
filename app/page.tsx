@@ -108,7 +108,7 @@ export default function Home() {
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-full bg-slate-50/50 opacity-50 z-0"></div>
                 <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
                     <p className="text-xl md:text-3xl font-light leading-relaxed text-slate-800 tracking-tight">
-                        <span className="font-bold text-slate-900">HYFU</span> is a clean-energy technology company focused on Solid Oxide Fuel Cell (SOFC) systems. Unlike intermittent renewables, our systems provide <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-600">always-on power</span> with predictable performance and industrial-grade reliability.
+                        <span className="font-bold text-slate-900">HYFUX</span> is a clean-energy technology company focused on Solid Oxide Fuel Cell (SOFC) systems. Unlike intermittent renewables, our systems provide <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-cyan-600">always-on power</span> with predictable performance and industrial-grade reliability.
                     </p>
                 </div>
             </AnimatedSection>
@@ -192,7 +192,7 @@ export default function Home() {
                         light={false}
                         label="2. Platform Overview"
                         title="High-Efficiency Electrochemical Power"
-                        description="HYFU systems generate electricity through electrochemical reactions, not combustion. This allows for superior efficiency and ultra-low emissions."
+                        description="HYFUX systems generate electricity through electrochemical reactions, not combustion. This allows for superior efficiency and ultra-low emissions."
                     />
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
@@ -406,7 +406,7 @@ export default function Home() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                         </div>
                         <p className="text-slate-600 text-lg leading-relaxed">
-                            Near-zero NOx and SOx. No combustion particulates. HYFU provides an immediate pathway to decarbonization.
+                            Near-zero NOx and SOx. No combustion particulates. HYFUX provides an immediate pathway to decarbonization.
                         </p>
                     </div>
                 </AnimatedSection>
@@ -418,7 +418,7 @@ export default function Home() {
                     <SectionHeader
                         label="8. Use Cases"
                         title="Built for Mission-Critical Applications"
-                        description="HYFU serves industries where downtime is not an option."
+                        description="HYFUX serves industries where downtime is not an option."
                     />
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -518,7 +518,7 @@ export default function Home() {
 
                     <div className="flex flex-col sm:flex-row justify-center gap-6">
                         <Link href="/contact" className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all shadow-xl hover:shadow-blue-600/30 text-lg hover:-translate-y-1">
-                            Partner with HYFU
+                            Partner with HYFUX
                         </Link>
                         <Link href="/contact" className="px-10 py-5 bg-white border border-slate-200 text-slate-900 font-bold rounded-xl hover:bg-slate-50 transition-all shadow-md hover:shadow-xl text-lg hover:-translate-y-1">
                             Request Technical Briefing
@@ -533,11 +533,11 @@ export default function Home() {
                     <h2 className="text-4xl font-extrabold text-slate-900 mb-16 text-center">Frequently Asked Questions</h2>
                     <div className="space-y-4">
                         {[
-                            { q: "Is HYFU technology commercially ready?", a: "Yes. HYFU focuses on deployable SOFC platforms engineered for industrial uptime and long operating life." },
-                            { q: "Can HYFU systems run on hydrogen today?", a: "They are hydrogen-ready and can operate on blended fuels, with full hydrogen capability as supply matures." },
+                            { q: "Is HYFUX technology commercially ready?", a: "Yes. HYFUX focuses on deployable SOFC platforms engineered for industrial uptime and long operating life." },
+                            { q: "Can HYFUX systems run on hydrogen today?", a: "They are hydrogen-ready and can operate on blended fuels, with full hydrogen capability as supply matures." },
                             { q: "How does SOFC efficiency compare to gas engines?", a: "SOFC systems deliver significantly higher electrical efficiency, especially at small-to-mid scale." },
                             { q: "What industries benefit most?", a: "Industries requiring continuous, reliable power with emissions constraints—data centers, healthcare, manufacturing." },
-                            { q: "Does HYFU replace renewables?", a: "No. HYFU complements renewables by providing clean baseload power." }
+                            { q: "Does HYFUX replace renewables?", a: "No. HYFUX complements renewables by providing clean baseload power." }
                         ].map((faq, i) => (
                             <FAQItem
                                 key={i}

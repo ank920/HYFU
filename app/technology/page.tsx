@@ -82,7 +82,7 @@ export default function TechnologyPage() {
                 <div className="absolute inset-0 z-0">
                     <Image
                         src="/images/techno/hero img.png"
-                        alt="HYFU SOFC Platform"
+                        alt="HYFUX SOFC Platform"
                         fill
                         className="object-cover opacity-80"
                         priority
@@ -97,7 +97,7 @@ export default function TechnologyPage() {
                             Technology Platform
                         </span>
                         <h1 className="text-3xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-                            HYFU Solid Oxide <br />
+                            HYFUX Solid Oxide <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Fuel Cell (SOFC)</span> Platform
                         </h1>
                         <p className="text-xl md:text-2xl text-slate-300 font-light leading-relaxed">
@@ -111,10 +111,10 @@ export default function TechnologyPage() {
             <AnimatedSection className="py-12 md:py-20 bg-white border-b border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <p className="text-xl md:text-2xl font-light leading-relaxed text-slate-800 mb-8">
-                        HYFU’s technology platform is built on industrial-grade Solid Oxide Fuel Cell (SOFC) systems engineered for <span className="font-semibold text-blue-600">continuous, high-efficiency power generation</span>.
+                        HYFUX’s technology platform is built on industrial-grade Solid Oxide Fuel Cell (SOFC) systems engineered for <span className="font-semibold text-blue-600">continuous, high-efficiency power generation</span>.
                     </p>
                     <p className="text-slate-600 text-lg leading-relaxed max-w-3xl mx-auto">
-                        Unlike combustion-based generation, HYFU’s SOFC systems convert chemical energy directly into electricity, enabling step-change improvements in efficiency, emissions, and durability. The result is a power platform suited not for labs or pilots, but for real-world, mission-critical energy applications.
+                        Unlike combustion-based generation, HYFUX’s SOFC systems convert chemical energy directly into electricity, enabling step-change improvements in efficiency, emissions, and durability. The result is a power platform suited not for labs or pilots, but for real-world, mission-critical energy applications.
                     </p>
                 </div>
             </AnimatedSection>
@@ -127,7 +127,7 @@ export default function TechnologyPage() {
                     <SectionHeader
                         label="1. Technology Overview"
                         title="High-temperature electrochemical power, engineered for industry"
-                        description="HYFU’s SOFC platform is a high-temperature electrochemical power system that produces electricity through ionic transport rather than combustion."
+                        description="HYFUX’s SOFC platform is a high-temperature electrochemical power system that produces electricity through ionic transport rather than combustion."
                     />
 
                     <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -247,14 +247,14 @@ export default function TechnologyPage() {
                 <div className="max-w-7xl mx-auto px-6">
                     <SectionHeader
                         label="3. System Architecture"
-                        title="How HYFU SOFC Systems Work"
-                        description="From fuel input to grid-quality AC power. HYFU’s system architecture integrates the SOFC stack with a tightly engineered balance-of-plant (BoP)."
+                        title="How HYFUX SOFC Systems Work"
+                        description="From fuel input to grid-quality AC power. HYFUX’s system architecture integrates the SOFC stack with a tightly engineered balance-of-plant (BoP)."
                     />
 
                     <div className="relative h-[600px] w-full rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white mb-16 bg-white">
                         <Image
                             src="/images/techno/How HYFU SOFC Systems Work.jpg"
-                            alt="How HYFU Systems Work Diagram"
+                            alt="How HYFUX Systems Work Diagram"
                             fill
                             className="object-contain p-4"
                         />
@@ -332,7 +332,7 @@ export default function TechnologyPage() {
                                 <div className="space-y-6">
                                     <div>
                                         <div className="flex justify-between text-sm font-bold mb-2">
-                                            <span className="text-blue-700">HYFU SOFC</span>
+                                            <span className="text-blue-700">HYFUX SOFC</span>
                                             <span className="text-slate-900">~55–60%</span>
                                         </div>
                                         <div className="w-full bg-slate-200 rounded-full h-3">
@@ -390,7 +390,7 @@ export default function TechnologyPage() {
                             <SectionHeader
                                 label="5. Materials Engineering"
                                 title="Stack Design & Engineered Ceramics"
-                                description="HYFU SOFC stacks are multi-layer electrochemical assemblies optimized for ionic conductivity, mechanical stability, and thermal cycling resistance."
+                                description="HYFUX SOFC stacks are multi-layer electrochemical assemblies optimized for ionic conductivity, mechanical stability, and thermal cycling resistance."
                             />
 
                             <div className="grid sm:grid-cols-2 gap-6">
@@ -426,7 +426,7 @@ export default function TechnologyPage() {
                     <SectionHeader
                         label="6. Future Proof"
                         title="Fuel Flexibility & Hydrogen Readiness"
-                        description="HYFU SOFC systems are designed for fuel-agnostic electrochemical operation. Customers can deploy today on available fuels and transition to hydrogen without stranded assets."
+                        description="HYFUX SOFC systems are designed for fuel-agnostic electrochemical operation. Customers can deploy today on available fuels and transition to hydrogen without stranded assets."
                     />
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -505,7 +505,7 @@ export default function TechnologyPage() {
                     <SectionHeader
                         label="8. Industrial-Grade Safety"
                         title="Safety, Controls & Monitoring"
-                        description="High-temperature systems require control precision, not operator intervention. HYFU systems incorporate multi-layered safety and control logic."
+                        description="High-temperature systems require control precision, not operator intervention. HYFUX systems incorporate multi-layered safety and control logic."
                     />
 
                     <div className="grid lg:grid-cols-2 gap-12">
@@ -551,7 +551,7 @@ export default function TechnologyPage() {
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold mb-6 text-slate-900">Technology Roadmap</h2>
                     <p className="text-lg text-slate-600 mb-12">
-                        HYFU’s technology roadmap focuses on incremental, bankable improvements—improving cost, efficiency, and durability.
+                        HYFUX’s technology roadmap focuses on incremental, bankable improvements—improving cost, efficiency, and durability.
                     </p>
 
                     <div className="grid md:grid-cols-4 gap-4">

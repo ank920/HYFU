@@ -73,7 +73,7 @@ export default function PartnershipPage() {
                         src="/images/partnership/hero.jpg"
                         alt="Partnership Hero"
                         fill
-                        className="object-cover blur-[2px]"
+                        className="object-cover"
                         priority
                     />
                 </div>
@@ -106,20 +106,20 @@ export default function PartnershipPage() {
                     <div>
                         <h2 className="text-3xl font-bold text-slate-900 mb-6">Shared Risk, Shared Value</h2>
                         <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                            HYFU’s partnership strategy is designed around a simple principle: complex energy systems scale fastest when risk, capability, and value creation are shared. No single organization can move the ecosystem forward independently.
+                            HYFUX’s partnership strategy is designed around a simple principle: complex energy systems scale fastest when risk, capability, and value creation are shared. No single organization can move the ecosystem forward independently.
                         </p>
                         <p className="text-lg text-slate-600 leading-relaxed mb-6">
                             We partner selectively across the value chain to accelerate deployment, reduce project risk, and ensure long-term operational success. These are not branding exercises; they are execution enablers.
                         </p>
                         <div className="p-4 bg-slate-50 border-l-4 border-blue-600 rounded-r-lg">
                             <p className="font-medium text-slate-800">
-                                This page outlines the five core partnership pillars through which HYFU collaborates to scale SOFC adoption globally.
+                                This page outlines the five core partnership pillars through which HYFUX collaborates to scale SOFC adoption globally.
                             </p>
                         </div>
                     </div>
                     <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-xl border border-slate-100 bg-white p-6">
                         <Image
-                            src="/images/partnership/WHY PARTNERSHIP MATTERS — Execution & Trust.png"
+                            src="images/partnership/Wh Partnershi Matters.jpg"
                             alt="Why Partnership Matters"
                             fill
                             className="object-contain"
@@ -133,7 +133,7 @@ export default function PartnershipPage() {
                 <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
                     <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-xl border border-white bg-white p-6">
                         <Image
-                            src="/images/partnership/Strategic Technology & Platform Partnerships.png"
+                            src="images/partnership/Extending System Capability.png"
                             alt="Technology Partnerships"
                             fill
                             className="object-contain"
@@ -143,7 +143,7 @@ export default function PartnershipPage() {
                         <SectionHeader
                             label="1. Technology & Platform"
                             title="Extending System Capability"
-                            description="HYFU collaborates with technology partners that strengthen system-level performance, reliability, and integration—without fragmenting platform ownership."
+                            description="HYFUX collaborates with technology partners that strengthen system-level performance, reliability, and integration—without fragmenting platform ownership."
                         />
 
                         <div className="grid gap-6">
@@ -175,7 +175,7 @@ export default function PartnershipPage() {
                         <SectionHeader
                             label="2. EPC & Project Delivery"
                             title="Turning Engineered Systems into Operational Assets"
-                            description="Deployment success depends on execution quality. HYFU works with EPC partners experienced in industrial energy infrastructure."
+                            description="Deployment success depends on execution quality. HYFUX works with EPC partners experienced in industrial energy infrastructure."
                         />
                         <div className="space-y-6">
                             <div className="flex gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 items-start">
@@ -200,7 +200,7 @@ export default function PartnershipPage() {
                     </div>
                     <div className="relative h-[450px] w-full rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-white p-6">
                         <Image
-                            src="/images/partnership/EPC & Project Delivery Partners.png"
+                            src="images/partnership/EPC & Project Delivery Partners.jpg"
                             alt="EPC Partners"
                             fill
                             className="object-contain"
@@ -224,7 +224,7 @@ export default function PartnershipPage() {
                         <SectionHeader
                             label="3. Fuel & Infrastructure"
                             title="Fuel Security Today, Transition Readiness Tomorrow"
-                            description="HYFU partners across the fuel ecosystem to support multi-fuel operation and hydrogen transition."
+                            description="HYFUX partners across the fuel ecosystem to support multi-fuel operation and hydrogen transition."
                         />
                         <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
                             <div className="space-y-6">
@@ -254,7 +254,7 @@ export default function PartnershipPage() {
                     <SectionHeader
                         label="4. Customer & Deployment"
                         title="Co-Deploying with Value-Driven Partners"
-                        description="HYFU treats customers as deployment partners, not just buyers—especially in early and large-scale projects. This aligns incentives around uptime and performance."
+                        description="HYFUX treats customers as deployment partners, not just buyers—especially in early and large-scale projects. This aligns incentives around uptime and performance."
                         className="mx-auto text-center"
                     />
 
@@ -283,7 +283,7 @@ export default function PartnershipPage() {
                         </div>
                         <div className="relative h-[450px] w-full rounded-3xl overflow-hidden shadow-xl border border-slate-100 bg-white p-6">
                             <Image
-                                src="/images/partnership/TARGET PARTNERS — Enterprise Scale.png"
+                                src="images/partnership/Co-Deploying with Value-Driven Partners.jpg"
                                 alt="Target Deployment Partners"
                                 fill
                                 className="object-contain"
@@ -298,7 +298,7 @@ export default function PartnershipPage() {
                 <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
                     <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-xl border border-white bg-white p-6">
                         <Image
-                            src="/images/partnership/ECOSYSTEM PARTNERS — Global Collaboration.png"
+                            src="images/partnership/Unlocking Scale Through Alignment.jpg"
                             alt="Ecosystem Collaboration"
                             fill
                             className="object-contain"
@@ -339,11 +339,11 @@ export default function PartnershipPage() {
                     <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Partnership FAQ</h2>
                     <div className="space-y-4">
                         {[
-                            { q: "Does HYFU partner exclusively or non-exclusively?", a: "Partnership structures are flexible and designed around mutual value and deployment scale." },
-                            { q: "Are partnerships regional or global?", a: "Both. HYFU supports region-specific partnerships aligned with local energy markets." },
+                            { q: "Does HYFUX partner exclusively or non-exclusively?", a: "Partnership structures are flexible and designed around mutual value and deployment scale." },
+                            { q: "Are partnerships regional or global?", a: "Both. HYFUX supports region-specific partnerships aligned with local energy markets." },
                             { q: "Can customers become long-term partners?", a: "Yes. Large customers often evolve into strategic deployment partners." },
-                            { q: "Do partnerships affect system ownership?", a: "No. HYFU retains platform integrity while enabling ecosystem collaboration." },
-                            { q: "How does HYFU select partners?", a: "Based on technical capability, execution track record, and long-term alignment." }
+                            { q: "Do partnerships affect system ownership?", a: "No. HYFUX retains platform integrity while enabling ecosystem collaboration." },
+                            { q: "How does HYFUX select partners?", a: "Based on technical capability, execution track record, and long-term alignment." }
                         ].map((faq, i) => (
                             <FAQItem
                                 key={i}

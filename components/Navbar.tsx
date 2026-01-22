@@ -21,7 +21,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
-    const isLightHero = pathname === "/" || pathname === "/market" || pathname === "/partnerships"; // Home, Market, and Partnerships pages have light hero images
+    const isLightHero = pathname === "/" || pathname === "/market" || pathname === "/partnerships" || pathname === "/about"; // Home, Market, Partnerships, and About pages have light hero images
 
     // Handle scroll effect
     useEffect(() => {

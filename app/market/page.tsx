@@ -99,7 +99,7 @@ export default function MarketPage() {
             <AnimatedSection className="py-12 md:py-20 bg-white border-b border-slate-100">
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <p className="text-xl md:text-2xl font-light leading-relaxed text-slate-800 mb-8">
-                        HYFU operates in a market that is no longer speculative. The global Solid Oxide Fuel Cell (SOFC) market is entering a <span className="font-semibold text-blue-600">scale phase</span>, driven by structural shifts in energy demand: grid instability, data-center growth, industrial electrification, hydrogen policy support, and decarbonization mandates.
+                        HYFUX operates in a market that is no longer speculative. The global Solid Oxide Fuel Cell (SOFC) market is entering a <span className="font-semibold text-blue-600">scale phase</span>, driven by structural shifts in energy demand: grid instability, data-center growth, industrial electrification, hydrogen policy support, and decarbonization mandates.
                     </p>
                     <p className="text-slate-600 text-lg leading-relaxed mb-8">
                         This page translates independent market data into clear commercial insight: how large the market is, how fast it is growing, which segments matter, and where capital is concentrating.
@@ -475,21 +475,21 @@ export default function MarketPage() {
                         <div className="order-2 lg:order-1 relative h-[500px] w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-100 bg-white p-6">
                             <Image
                                 src="/images/market/What Market Scale Means for HYFU.webp"
-                                alt="HYFU Scale Vision"
+                                alt="HYFUX Scale Vision"
                                 fill
                                 className="object-contain"
                             />
                         </div>
                         <div className="order-1 lg:order-2">
                             <SectionHeader
-                                label="10. Implication for HYFU"
+                                label="10. Implication for HYFUX"
                                 title="Scale Is No Longer Optional"
                                 description="The next decade will separate platforms built for repeatable deployment from technologies that remain niche."
                             />
                             <div className="p-8 bg-blue-600 text-white rounded-3xl shadow-lg">
                                 <h4 className="text-2xl font-bold mb-4">Deploy Phase</h4>
                                 <p className="leading-relaxed opacity-90">
-                                    HYFU positions itself for the deployment phase of the SOFC market, where scale, reliability, and customer value determine leadership.
+                                    HYFUX positions itself for the deployment phase of the SOFC market, where scale, reliability, and customer value determine leadership.
                                 </p>
                             </div>
                         </div>
